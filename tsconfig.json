@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "es2020",
+    "strict": true,
+    "declaration": true,
+    "outDir": "./dist",
+    "moduleResolution": "node"
+  },
+  "include": ["index.ts"],
+  "exclude": ["node_modules"]
+}
