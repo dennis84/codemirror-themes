@@ -1,3 +1,7 @@
 export {dracula, draculaTheme, draculaHighlightStyle} from './themes/dracula'
 export {solarizedLight, solarizedLightTheme, solarizedLightHighlightStyle} from './themes/solarized-light'
 export {solarizedDark, solarizedDarkTheme, solarizedDarkHighlightStyle} from './themes/solarized-dark'
+export {material, materialTheme, materialHighlightStyle} from './themes/material'
+export {materialLight, materialLightTheme, materialLightHighlightStyle} from './themes/material-light'
+export {githubLight, githubLightTheme, githubLightHighlightStyle} from './themes/github-light'
+export {githubDark, githubDarkTheme, githubDarkHighlightStyle} from './themes/github-dark'

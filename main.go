@@ -5,7 +5,9 @@ import (
   "log"
   "os"
   "io"
+  "sort"
   "strings"
+  "reflect"
   "text/template"
   "net/http"
   "archive/zip"
@@ -17,6 +19,7 @@ type Theme struct {
   Name string
   Url string
   File string
+  Dark bool
 }
 
 func main() {
@@ -25,16 +28,43 @@ func main() {
       Name: "dracula",
       Url: "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/dracula-theme/vsextensions/theme-dracula/2.22.3/vspackage",
       File: "extension/theme/dracula.json",
+      Dark: true,
     },
     {
       Name: "solarized-light",
       Url: "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ryanolsonx/vsextensions/solarized/2.0.3/vspackage",
       File: "extension/themes/light-color-theme.json",
+      Dark: false,
     },
     {
       Name: "solarized-dark",
       Url: "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ryanolsonx/vsextensions/solarized/2.0.3/vspackage",
       File: "extension/themes/dark-color-theme.json",
+      Dark: true,
+    },
+    {
+      Name: "material-light",
+      Url: "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/Equinusocio/vsextensions/vsc-material-theme/33.1.2/vspackage",
+      File: "extension/build/themes/Material-Theme-Lighter.json",
+      Dark: false,
+    },
+    {
+      Name: "material-dark",
+      Url: "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/Equinusocio/vsextensions/vsc-material-theme/33.1.2/vspackage",
+      File: "extension/build/themes/Material-Theme-Default.json",
+      Dark: true,
+    },
+    {
+      Name: "github-light",
+      Url: "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/github-vscode-theme/3.0.0/vspackage",
+      File: "extension/themes/light.json",
+      Dark: false,
+    },
+    {
+      Name: "github-dark",
+      Url: "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/github-vscode-theme/3.0.0/vspackage",
+      File: "extension/themes/dark.json",
+      Dark: true,
     },
   }
 
@@ -77,8 +107,15 @@ func generateTheme(theme Theme, content []byte) {
   out.Close()
 }
 
+type Style struct{
+  Color string
+  FontStyle string
+  Prio int
+}
+
 type TokenColorSettings struct{
   Foreground string
+  FontStyle string
 }
 
 type TokenColor struct{
@@ -91,81 +128,125 @@ type VsCodeTheme struct{
   TokenColors []TokenColor
 }
 
-func findTokenColor(data VsCodeTheme, scopes ...string) TokenColorSettings {
-  for _, scope := range scopes {
+func find(data VsCodeTheme, keys ...string) Style {
+  results := []Style{}
+  prio := 0
+
+  for i, key := range keys {
+    prio = i+1
+    if value, exist := data.Colors[key]; exist {
+      results = append(results, Style{Color: value, Prio: prio})
+    }
+
     for _, tokenColor := range data.TokenColors {
-      if s, ok := tokenColor.Scope.(interface{}); ok {
-        if s == scope {
-          return tokenColor.Settings
-        }
+      scopes := []string{}
+      rt := reflect.TypeOf(tokenColor.Scope)
+      if tokenColor.Scope == nil {
+        continue
       }
 
-      if scopes, ok := tokenColor.Scope.([]interface{}); ok {
-        for _, s := range scopes {
-          if s == scope {
-            return tokenColor.Settings
+      switch rt.Kind() {
+        case reflect.Slice:
+          for _, s := range tokenColor.Scope.([]interface{}) {
+            scopes = append(scopes, s.(string))
           }
+        case reflect.String:
+          splitted := strings.Split(tokenColor.Scope.(string), ",")
+          for _, s := range splitted {
+            scopes = append(scopes, strings.TrimSpace(s))
+          }
+        default:
+          panic(fmt.Sprintf("Unecpected scope type %s", rt))
+      }
+
+      for j, scope := range scopes {
+        if scope == key {
+          item := Style{
+            Color: tokenColor.Settings.Foreground,
+            FontStyle: tokenColor.Settings.FontStyle,
+            Prio: prio*(j+1),
+          }
+          results = append(results, item)
         }
       }
     }
   }
 
-  panic(fmt.Sprintf("Could not find tokenColor by scopes: %s", scopes))
-}
+  sort.Slice(results, func(i, j int) bool {
+    return results[i].Prio < results[j].Prio
+  })
 
-func getColor(data VsCodeTheme, key string) string {
-  return data.Colors[key]
+  if len(results) == 0 {
+    panic(fmt.Sprintf("Could not find color by: %s", keys))
+  }
+
+  return results[0]
 }
 
 type TemplateParams struct {
-  ExportPrefix string
-  Background string
-  Foreground string
-  Selection string
-  Cursor string
-  DropdownBackground string
-  DropdownBorder string
+  ExportPrefix       string
+  Dark               bool
+
+  // Editor
+  Background         Style
+  Foreground         Style
+  Selection          Style
+  Cursor             Style
+  DropdownBackground Style
+  DropdownBorder     Style
+
   // Syntax
-  Keyword string
-  Function string
-  Variable string
-  String string
-  Constant string
-  Class string
-  Comment string
-  Heading string
-  Invalid string
-  Regexp string
+  Keyword            Style // if else, etc
+  Storage            Style // const, let, etc - Not supported in CM
+  Parameter          Style // fn(parmater)    - Not supported in CM
+  Variable           Style
+  Function           Style
+  String             Style
+  Constant           Style // ???
+  Type               Style // x: MyType
+  Class              Style // class MyClass
+  Number             Style
+  Comment            Style
+  Heading            Style
+  Invalid            Style
+  Regexp             Style
 }
 
 func makeTemplateParams(theme Theme, content []byte) TemplateParams {
-  var data VsCodeTheme //map[string]interface{}
+  var data VsCodeTheme
   err := json.Unmarshal(content, &data)
 
   if err != nil {
-    log.Fatal(err)
+    log.Fatal("JSON parse error: ", err)
   }
 
   params := TemplateParams{
     ExportPrefix:       kebabToCamelCase(theme.Name),
+    Dark:               theme.Dark,
     // Layout
-    Background:         getColor(data, "editor.background"),
-    Foreground:         getColor(data, "input.foreground"),
-    Selection:          getColor(data, "editor.selectionBackground"),
-    Cursor:             getColor(data, "editorCursor.foreground"), // TODO
-    DropdownBackground: getColor(data, "dropdown.background"),
-    DropdownBorder:     getColor(data, "dropdown.border"),
+    // ========================================================================
+    Background:         find(data, "editor.background"),
+    Foreground:         find(data, "foreground", "input.foreground"),
+    Selection:          find(data, "editor.selectionBackground"),
+    Cursor:             find(data, "editorCursor.foreground", "foreground"),
+    DropdownBackground: find(data, "dropdown.background"),
+    DropdownBorder:     find(data, "dropdown.border"),
     // Syntax
-    Keyword:            findTokenColor(data, "keyword").Foreground,
-    Function:           findTokenColor(data, "entity.name.function").Foreground,
-    Variable:           findTokenColor(data, "variable.parameter").Foreground,
-    String:             findTokenColor(data, "string").Foreground,
-    Constant:           findTokenColor(data, "constant", "constant.character").Foreground,
-    Class:              findTokenColor(data, "entity.name.class").Foreground,
-    Comment:            findTokenColor(data, "comment").Foreground,
-    Heading:            findTokenColor(data, "markup.heading").Foreground,
-    Invalid:            findTokenColor(data, "invalid").Foreground,
-    Regexp:             findTokenColor(data, "string.regexp").Foreground,
+    // ========================================================================
+    Keyword:            find(data, "keyword"),
+    Storage:            find(data, "storage", "keyword"),
+    Variable:           find(data, "variable", "variable.language", "variable.other", "foreground"),
+    Parameter:          find(data, "variable.parameter", "variable"),
+    Function:           find(data, "entity.name.function", "entity.name"),
+    String:             find(data, "string"),
+    Constant:           find(data, "constant", "constant.character", "constant.keyword"),
+    Type:               find(data, "support.type", "support", "entity.name.class"),
+    Class:              find(data, "entity.name.class", "entity.name"),
+    Number:             find(data, "constant.numeric", "constant"),
+    Comment:            find(data, "comment"),
+    Heading:            find(data, "markup.heading"),
+    Invalid:            find(data, "invalid", "editorError.foreground", "errorForeground"),
+    Regexp:             find(data, "string.regexp", "string"),
   }
 
   return params
@@ -213,6 +294,8 @@ func downloadTheme(theme Theme) {
   if resp.StatusCode != 200 {
     log.Fatal("Could not download theme: ", theme, "StatusCode: ", resp.StatusCode)
   }
+
+  _ = os.Mkdir("./tmp", 0700)
 
   // Create the file
   out, err := os.Create("tmp/" + theme.Name + ".zip")
