@@ -129,14 +129,12 @@ type VsCodeTheme struct{
 }
 
 func find(data VsCodeTheme, keys ...string) Style {
-  results := []Style{}
-  prio := 0
-
-  for i, key := range keys {
-    prio = i+1
+  for _, key := range keys {
     if value, exist := data.Colors[key]; exist {
-      results = append(results, Style{Color: value, Prio: prio})
+      return Style{Color: value}
     }
+
+    results := []Style{}
 
     for _, tokenColor := range data.TokenColors {
       scopes := []string{}
@@ -164,23 +162,23 @@ func find(data VsCodeTheme, keys ...string) Style {
           item := Style{
             Color: tokenColor.Settings.Foreground,
             FontStyle: tokenColor.Settings.FontStyle,
-            Prio: prio*(j+1),
+            Prio: j,
           }
           results = append(results, item)
         }
       }
     }
+
+    sort.Slice(results, func(i, j int) bool {
+      return results[i].Prio < results[j].Prio
+    })
+
+    if len(results) > 0 {
+      return results[0]
+    }
   }
 
-  sort.Slice(results, func(i, j int) bool {
-    return results[i].Prio < results[j].Prio
-  })
-
-  if len(results) == 0 {
-    panic(fmt.Sprintf("Could not find color by: %s", keys))
-  }
-
-  return results[0]
+  panic(fmt.Sprintf("Could not find color by: %s", keys))
 }
 
 type TemplateParams struct {
@@ -221,7 +219,7 @@ func makeTemplateParams(theme Theme, content []byte) TemplateParams {
   }
 
   params := TemplateParams{
-    ExportPrefix:       kebabToCamelCase(theme.Name),
+    ExportPrefix:       KebabToCamelCase(theme.Name),
     Dark:               theme.Dark,
     // Layout
     // ========================================================================
@@ -235,7 +233,7 @@ func makeTemplateParams(theme Theme, content []byte) TemplateParams {
     // ========================================================================
     Keyword:            find(data, "keyword"),
     Storage:            find(data, "storage", "keyword"),
-    Variable:           find(data, "variable", "variable.language", "variable.other", "foreground"),
+    Variable:           find(data, "variable.other", "variable.language", "variable", "foreground"),
     Parameter:          find(data, "variable.parameter", "variable"),
     Function:           find(data, "entity.name.function", "entity.name"),
     String:             find(data, "string"),
@@ -312,7 +310,7 @@ func downloadTheme(theme Theme) {
   }
 }
 
-func kebabToCamelCase(kebab string) (camelCase string) {
+func KebabToCamelCase(kebab string) (camelCase string) {
   isToUpper := false
   for _, runeValue := range kebab {
     if isToUpper {

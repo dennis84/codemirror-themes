@@ -61,7 +61,7 @@ export const solarizedLightHighlightStyle = HighlightStyle.define(
   // const, let, function, if
   {tag: t.keyword, color: '#859900'},
   // document
-  {tag: [t.name, t.deleted, t.character, t.macroName], color: '#268BD2'},
+  {tag: [t.name, t.deleted, t.character, t.macroName], color: '#657b83'},
   // getElementById
   {tag: [t.propertyName], color: '#268BD2'},
   // "string"
@@ -71,7 +71,7 @@ export const solarizedLightHighlightStyle = HighlightStyle.define(
   // ???
   {tag: [t.color, t.constant(t.name), t.standard(t.name)], color: '#CB4B16'},
   // btn, count, fn render()
-  {tag: [t.definition(t.name), t.separator], color: '#268BD2'},
+  {tag: [t.definition(t.name), t.separator], color: '#657b83'},
   {tag: [t.className], color: '#268BD2'},
   {tag: [t.number, t.changed, t.annotation, t.modifier, t.self, t.namespace], color: '#D33682'},
   {tag: [t.typeName], color: '#859900', fontStyle: ''},
@@ -82,7 +82,7 @@ export const solarizedLightHighlightStyle = HighlightStyle.define(
   {tag: t.emphasis, fontStyle: 'italic'},
   {tag: t.link, textDecoration: 'underline'},
   {tag: t.heading, fontWeight: 'bold', color: '#268BD2'},
-  {tag: [t.atom, t.bool, t.special(t.variableName)], color: '#268BD2'},
+  {tag: [t.atom, t.bool, t.special(t.variableName)], color: '#657b83'},
   {tag: t.invalid, color: ''},
 )
 

@@ -61,7 +61,7 @@ export const githubLightHighlightStyle = HighlightStyle.define(
   // const, let, function, if
   {tag: t.keyword, color: '#d73a49'},
   // document
-  {tag: [t.name, t.deleted, t.character, t.macroName], color: '#e36209'},
+  {tag: [t.name, t.deleted, t.character, t.macroName], color: '#24292e'},
   // getElementById
   {tag: [t.propertyName], color: '#6f42c1'},
   // "string"
@@ -71,7 +71,7 @@ export const githubLightHighlightStyle = HighlightStyle.define(
   // ???
   {tag: [t.color, t.constant(t.name), t.standard(t.name)], color: '#005cc5'},
   // btn, count, fn render()
-  {tag: [t.definition(t.name), t.separator], color: '#e36209'},
+  {tag: [t.definition(t.name), t.separator], color: '#24292e'},
   {tag: [t.className], color: '#6f42c1'},
   {tag: [t.number, t.changed, t.annotation, t.modifier, t.self, t.namespace], color: '#005cc5'},
   {tag: [t.typeName], color: '#005cc5', fontStyle: ''},
@@ -82,7 +82,7 @@ export const githubLightHighlightStyle = HighlightStyle.define(
   {tag: t.emphasis, fontStyle: 'italic'},
   {tag: t.link, textDecoration: 'underline'},
   {tag: t.heading, fontWeight: 'bold', color: '#005cc5'},
-  {tag: [t.atom, t.bool, t.special(t.variableName)], color: '#e36209'},
+  {tag: [t.atom, t.bool, t.special(t.variableName)], color: '#24292e'},
   {tag: t.invalid, color: '#cb2431'},
 )
 

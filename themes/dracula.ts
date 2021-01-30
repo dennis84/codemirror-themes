@@ -61,7 +61,7 @@ export const draculaHighlightStyle = HighlightStyle.define(
   // const, let, function, if
   {tag: t.keyword, color: '#FF79C6'},
   // document
-  {tag: [t.name, t.deleted, t.character, t.macroName], color: '#F8F8F2'},
+  {tag: [t.name, t.deleted, t.character, t.macroName], color: '#BD93F9'},
   // getElementById
   {tag: [t.propertyName], color: '#50FA7B'},
   // "string"
@@ -71,7 +71,7 @@ export const draculaHighlightStyle = HighlightStyle.define(
   // ???
   {tag: [t.color, t.constant(t.name), t.standard(t.name)], color: '#BD93F9'},
   // btn, count, fn render()
-  {tag: [t.definition(t.name), t.separator], color: '#F8F8F2'},
+  {tag: [t.definition(t.name), t.separator], color: '#BD93F9'},
   {tag: [t.className], color: '#8BE9FD'},
   {tag: [t.number, t.changed, t.annotation, t.modifier, t.self, t.namespace], color: '#BD93F9'},
   {tag: [t.typeName], color: '#8BE9FD', fontStyle: 'italic'},
@@ -82,7 +82,7 @@ export const draculaHighlightStyle = HighlightStyle.define(
   {tag: t.emphasis, fontStyle: 'italic'},
   {tag: t.link, textDecoration: 'underline'},
   {tag: t.heading, fontWeight: 'bold', color: '#BD93F9'},
-  {tag: [t.atom, t.bool, t.special(t.variableName)], color: '#F8F8F2'},
+  {tag: [t.atom, t.bool, t.special(t.variableName)], color: '#BD93F9'},
   {tag: t.invalid, color: '#FF5555'},
 )
 
