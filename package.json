@@ -13,7 +13,7 @@
   "types": "dist/index.d.ts",
   "module": "dist/index.js",
   "scripts": {
-    "build": "rollup -c"
+    "prepare": "rollup -c"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.1.0",
