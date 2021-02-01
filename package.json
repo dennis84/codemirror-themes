@@ -5,13 +5,18 @@
   "description": "",
   "repository": "https://github.com/dennis84/codemirror-themes",
   "type": "module",
-  "main": "dist/index.cjs",
   "exports": {
-    "import": "./dist/index.js",
-    "require": "./dist/index.cjs"
+    ".": "./dist/index.js",
+    "./theme/dracula": "./dist/theme/dracula.js",
+    "./theme/material-light": "./dist/theme/material-light.js",
+    "./theme/material-dark": "./dist/theme/material-dark.js",
+    "./theme/solarized-light": "./dist/theme/solarized-light.js",
+    "./theme/solarized-dark": "./dist/theme/solarized-dark.js",
+    "./theme/github-light": "./dist/theme/github-light.js",
+    "./theme/github-dark": "./dist/theme/github-dark.js",
+    "./package.json": "./package.json"
   },
-  "types": "dist/index.d.ts",
-  "module": "dist/index.js",
+  "sideEffects": false,
   "scripts": {
     "prepare": "rollup -c"
   },

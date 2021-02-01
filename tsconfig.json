@@ -4,9 +4,10 @@
     "module": "es2020",
     "strict": true,
     "declaration": true,
-    "outDir": "./dist",
-    "moduleResolution": "node"
+    "declarationMap": true,
+    "outDir": "./dist/theme",
+    "moduleResolution": "node",
+    "rootDir": "./theme"
   },
-  "include": ["index.ts"],
-  "exclude": ["node_modules"]
+  "include": ["./theme"]
 }
