@@ -3,10 +3,7 @@ WIP
 ## Install
 
 ```bash
-npm i
-npm link
-cd ~/my-project
-npm link codemirror-themes
+npm i dennis84/codemirror-themes#master --save
 ```
 
 ## Usage
