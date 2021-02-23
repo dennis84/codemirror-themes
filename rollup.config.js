@@ -4,7 +4,7 @@ import {join} from 'path'
 
 const themes = join(__dirname, 'theme')
 
-const config = readdirSync(themes).map((f) => ({
+const builds = readdirSync(themes).map((f) => ({
   input: join(themes, f),
   output: [{
     format: 'esm',
@@ -15,13 +15,4 @@ const config = readdirSync(themes).map((f) => ({
   external: id => id != 'tslib' && !/^(\.?\/|\w:)/.test(id),
 }))
 
-export default [{
-  input: './index.ts',
-  output: [{
-    format: 'esm',
-    dir: "./dist",
-    externalLiveBindings: false,
-  }],
-  plugins: [typescript()],
-  external: id => id != 'tslib' && !/^(\.?\/|\w:)/.test(id),
-}, ...config]
+export default builds
