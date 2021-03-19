@@ -3,53 +3,53 @@ import {Extension} from '@codemirror/state'
 import {HighlightStyle, tags as t} from '@codemirror/highlight'
 
 export const solarizedLightTheme = EditorView.theme({
-  $: {
+  '&': {
     color: '#586e75',
     backgroundColor: '#fdf6e3',
     '& ::selection': {backgroundColor: '#eee8d5'},
     caretColor: '#657b83',
   },
 
-  '$$focused $cursor': {borderLeftColor: '#657b83'},
-  '$$focused $selectionBackground': {backgroundColor: '#eee8d5'},
+  '&.cm-focused .cm-cursor': {borderLeftColor: '#657b83'},
+  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground': {backgroundColor: '#eee8d5'},
 
-  $panels: {backgroundColor: '#eee8d5', color: '#586e75'},
-  '$panels.top': {borderBottom: '2px solid black'},
-  '$panels.bottom': {borderTop: '2px solid black'},
+  '.cm-panels': {backgroundColor: '#eee8d5', color: '#586e75'},
+  '.cm-panels.cm-panels-top': {borderBottom: '2px solid black'},
+  '.cm-panels.cm-panels-bottom': {borderTop: '2px solid black'},
 
-  $searchMatch: {
+  '.cm-searchMatch': {
     backgroundColor: '#eee8d5',
     outline: `1px solid #d3af86`
   },
-  '$searchMatch.selected': {
+  '.cm-searchMatch.cm-searchMatch-selected': {
     backgroundColor: '#eee8d5'
   },
 
-  $activeLine: {backgroundColor: '#eee8d5'},
-  $selectionMatch: {backgroundColor: '#eee8d5'},
+  '.cm-activeLine': {backgroundColor: '#eee8d5'},
+  '.cm-selectionMatch': {backgroundColor: '#eee8d5'},
 
-  '$matchingBracket, $nonmatchingBracket': {
+  '.cm-matchingBracket, .cm-nonmatchingBracket': {
     backgroundColor: '',
     outline: 'none'
   },
-  $gutters: {
+  '.cm-gutters': {
     backgroundColor: '#fdf6e3',
     color: '#586e75',
     border: 'none'
   },
-  '$gutterElement.lineNumber': {color: 'inherit'},
+  '.cm-lineNumbers, .cm-gutterElement': {color: 'inherit'},
 
-  $foldPlaceholder: {
+  '.cm-foldPlaceholder': {
     backgroundColor: 'transparent',
     border: 'none',
     color: '#586e75'
   },
 
-  $tooltip: {
+  '.cm-tooltip': {
     border: '1px solid #d3af86',
     backgroundColor: '#eee8d5'
   },
-  '$tooltip.autocomplete': {
+  '.cm-tooltip-autocomplete': {
     '& > ul > li[aria-selected]': {
       backgroundColor: '#eee8d5',
       color: '#586e75'

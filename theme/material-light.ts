@@ -3,53 +3,53 @@ import {Extension} from '@codemirror/state'
 import {HighlightStyle, tags as t} from '@codemirror/highlight'
 
 export const materialLightTheme = EditorView.theme({
-  $: {
+  '&': {
     color: '#90A4AE',
     backgroundColor: '#FAFAFA',
     '& ::selection': {backgroundColor: '#80CBC440'},
     caretColor: '#272727',
   },
 
-  '$$focused $cursor': {borderLeftColor: '#272727'},
-  '$$focused $selectionBackground': {backgroundColor: '#80CBC440'},
+  '&.cm-focused .cm-cursor': {borderLeftColor: '#272727'},
+  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground': {backgroundColor: '#80CBC440'},
 
-  $panels: {backgroundColor: '#FAFAFA', color: '#90A4AE'},
-  '$panels.top': {borderBottom: '2px solid black'},
-  '$panels.bottom': {borderTop: '2px solid black'},
+  '.cm-panels': {backgroundColor: '#FAFAFA', color: '#90A4AE'},
+  '.cm-panels.cm-panels-top': {borderBottom: '2px solid black'},
+  '.cm-panels.cm-panels-bottom': {borderTop: '2px solid black'},
 
-  $searchMatch: {
+  '.cm-searchMatch': {
     backgroundColor: '#FAFAFA',
     outline: `1px solid #00000010`
   },
-  '$searchMatch.selected': {
+  '.cm-searchMatch.cm-searchMatch-selected': {
     backgroundColor: '#80CBC440'
   },
 
-  $activeLine: {backgroundColor: '#80CBC440'},
-  $selectionMatch: {backgroundColor: '#80CBC440'},
+  '.cm-activeLine': {backgroundColor: '#80CBC440'},
+  '.cm-selectionMatch': {backgroundColor: '#80CBC440'},
 
-  '$matchingBracket, $nonmatchingBracket': {
+  '.cm-matchingBracket, .cm-nonmatchingBracket': {
     backgroundColor: '#E5393570',
     outline: 'none'
   },
-  $gutters: {
+  '.cm-gutters': {
     backgroundColor: '#FAFAFA',
     color: '#90A4AE',
     border: 'none'
   },
-  '$gutterElement.lineNumber': {color: 'inherit'},
+  '.cm-lineNumbers, .cm-gutterElement': {color: 'inherit'},
 
-  $foldPlaceholder: {
+  '.cm-foldPlaceholder': {
     backgroundColor: 'transparent',
     border: 'none',
     color: '#90A4AE'
   },
 
-  $tooltip: {
+  '.cm-tooltip': {
     border: '1px solid #00000010',
     backgroundColor: '#FAFAFA'
   },
-  '$tooltip.autocomplete': {
+  '.cm-tooltip-autocomplete': {
     '& > ul > li[aria-selected]': {
       backgroundColor: '#80CBC440',
       color: '#90A4AE'

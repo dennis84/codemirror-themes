@@ -3,53 +3,53 @@ import {Extension} from '@codemirror/state'
 import {HighlightStyle, tags as t} from '@codemirror/highlight'
 
 export const {{.ExportPrefix}}Theme = EditorView.theme({
-  $: {
+  '&': {
     color: '{{.Foreground.Color}}',
     backgroundColor: '{{.Background.Color}}',
     '& ::selection': {backgroundColor: '{{.Selection.Color}}'},
     caretColor: '{{.Cursor.Color}}',
   },
 
-  '$$focused $cursor': {borderLeftColor: '{{.Cursor.Color}}'},
-  '$$focused $selectionBackground': {backgroundColor: '{{.Selection.Color}}'},
+  '&.cm-focused .cm-cursor': {borderLeftColor: '{{.Cursor.Color}}'},
+  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground': {backgroundColor: '{{.Selection.Color}}'},
 
-  $panels: {backgroundColor: '{{.DropdownBackground.Color}}', color: '{{.Foreground.Color}}'},
-  '$panels.top': {borderBottom: '2px solid black'},
-  '$panels.bottom': {borderTop: '2px solid black'},
+  '.cm-panels': {backgroundColor: '{{.DropdownBackground.Color}}', color: '{{.Foreground.Color}}'},
+  '.cm-panels.cm-panels-top': {borderBottom: '2px solid black'},
+  '.cm-panels.cm-panels-bottom': {borderTop: '2px solid black'},
 
-  $searchMatch: {
+  '.cm-searchMatch': {
     backgroundColor: '{{.DropdownBackground.Color}}',
     outline: `1px solid {{.DropdownBorder.Color}}`
   },
-  '$searchMatch.selected': {
+  '.cm-searchMatch.cm-searchMatch-selected': {
     backgroundColor: '{{.Selection.Color}}'
   },
 
-  $activeLine: {backgroundColor: '{{.Selection.Color}}'},
-  $selectionMatch: {backgroundColor: '{{.Selection.Color}}'},
+  '.cm-activeLine': {backgroundColor: '{{.Selection.Color}}'},
+  '.cm-selectionMatch': {backgroundColor: '{{.Selection.Color}}'},
 
-  '$matchingBracket, $nonmatchingBracket': {
+  '.cm-matchingBracket, .cm-nonmatchingBracket': {
     backgroundColor: '{{.Invalid.Color}}',
     outline: 'none'
   },
-  $gutters: {
+  '.cm-gutters': {
     backgroundColor: '{{.Background.Color}}',
     color: '{{.Foreground.Color}}',
     border: 'none'
   },
-  '$gutterElement.lineNumber': {color: 'inherit'},
+  '.cm-lineNumbers, .cm-gutterElement': {color: 'inherit'},
 
-  $foldPlaceholder: {
+  '.cm-foldPlaceholder': {
     backgroundColor: 'transparent',
     border: 'none',
     color: '{{.Foreground.Color}}'
   },
 
-  $tooltip: {
+  '.cm-tooltip': {
     border: '1px solid {{.DropdownBorder.Color}}',
     backgroundColor: '{{.DropdownBackground.Color}}'
   },
-  '$tooltip.autocomplete': {
+  '.cm-tooltip-autocomplete': {
     '& > ul > li[aria-selected]': {
       backgroundColor: '{{.Selection.Color}}',
       color: '{{.Foreground.Color}}'
