@@ -57,7 +57,7 @@ export const materialDarkTheme = EditorView.theme({
   }
 }, {dark: true})
 
-export const materialDarkHighlightStyle = HighlightStyle.define(
+export const materialDarkHighlightStyle = HighlightStyle.define([
   // const, let, function, if
   {tag: t.keyword, color: '#89DDFF'},
   // document
@@ -84,7 +84,7 @@ export const materialDarkHighlightStyle = HighlightStyle.define(
   {tag: t.heading, fontWeight: 'bold', color: '#89DDFF'},
   {tag: [t.atom, t.bool, t.special(t.variableName)], color: '#EEFFFF'},
   {tag: t.invalid, color: '#f0717870'},
-)
+])
 
 export const materialDark: Extension = [
   materialDarkTheme,

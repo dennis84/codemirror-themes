@@ -57,7 +57,7 @@ export const githubLightTheme = EditorView.theme({
   }
 }, {dark: false})
 
-export const githubLightHighlightStyle = HighlightStyle.define(
+export const githubLightHighlightStyle = HighlightStyle.define([
   // const, let, function, if
   {tag: t.keyword, color: '#d73a49'},
   // document
@@ -84,7 +84,7 @@ export const githubLightHighlightStyle = HighlightStyle.define(
   {tag: t.heading, fontWeight: 'bold', color: '#005cc5'},
   {tag: [t.atom, t.bool, t.special(t.variableName)], color: '#24292e'},
   {tag: t.invalid, color: '#cb2431'},
-)
+])
 
 export const githubLight: Extension = [
   githubLightTheme,

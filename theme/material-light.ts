@@ -57,7 +57,7 @@ export const materialLightTheme = EditorView.theme({
   }
 }, {dark: false})
 
-export const materialLightHighlightStyle = HighlightStyle.define(
+export const materialLightHighlightStyle = HighlightStyle.define([
   // const, let, function, if
   {tag: t.keyword, color: '#39ADB5'},
   // document
@@ -84,7 +84,7 @@ export const materialLightHighlightStyle = HighlightStyle.define(
   {tag: t.heading, fontWeight: 'bold', color: '#39ADB5'},
   {tag: [t.atom, t.bool, t.special(t.variableName)], color: '#90A4AE'},
   {tag: t.invalid, color: '#E5393570'},
-)
+])
 
 export const materialLight: Extension = [
   materialLightTheme,

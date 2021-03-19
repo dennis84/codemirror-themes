@@ -57,7 +57,7 @@ export const draculaTheme = EditorView.theme({
   }
 }, {dark: true})
 
-export const draculaHighlightStyle = HighlightStyle.define(
+export const draculaHighlightStyle = HighlightStyle.define([
   // const, let, function, if
   {tag: t.keyword, color: '#FF79C6'},
   // document
@@ -84,7 +84,7 @@ export const draculaHighlightStyle = HighlightStyle.define(
   {tag: t.heading, fontWeight: 'bold', color: '#BD93F9'},
   {tag: [t.atom, t.bool, t.special(t.variableName)], color: '#BD93F9'},
   {tag: t.invalid, color: '#FF5555'},
-)
+])
 
 export const dracula: Extension = [
   draculaTheme,

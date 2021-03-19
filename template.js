@@ -57,7 +57,7 @@ export const {{.ExportPrefix}}Theme = EditorView.theme({
   }
 }, {dark: {{.Dark}}})
 
-export const {{.ExportPrefix}}HighlightStyle = HighlightStyle.define(
+export const {{.ExportPrefix}}HighlightStyle = HighlightStyle.define([
   // const, let, function, if
   {tag: t.keyword, color: '{{.Keyword.Color}}'},
   // document
@@ -84,7 +84,7 @@ export const {{.ExportPrefix}}HighlightStyle = HighlightStyle.define(
   {tag: t.heading, fontWeight: 'bold', color: '{{.Heading.Color}}'},
   {tag: [t.atom, t.bool, t.special(t.variableName)], color: '{{.Variable.Color}}'},
   {tag: t.invalid, color: '{{.Invalid.Color}}'},
-)
+])
 
 export const {{.ExportPrefix}}: Extension = [
   {{.ExportPrefix}}Theme,

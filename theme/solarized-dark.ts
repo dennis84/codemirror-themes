@@ -57,7 +57,7 @@ export const solarizedDarkTheme = EditorView.theme({
   }
 }, {dark: true})
 
-export const solarizedDarkHighlightStyle = HighlightStyle.define(
+export const solarizedDarkHighlightStyle = HighlightStyle.define([
   // const, let, function, if
   {tag: t.keyword, color: '#859900'},
   // document
@@ -84,7 +84,7 @@ export const solarizedDarkHighlightStyle = HighlightStyle.define(
   {tag: t.heading, fontWeight: 'bold', color: '#268BD2'},
   {tag: [t.atom, t.bool, t.special(t.variableName)], color: '#839496'},
   {tag: t.invalid, color: ''},
-)
+])
 
 export const solarizedDark: Extension = [
   solarizedDarkTheme,

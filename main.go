@@ -94,7 +94,7 @@ func generateTheme(theme Theme, content []byte) {
     log.Fatal(err)
   }
 
-  out, err := os.Create("./themes/" + theme.Name + ".ts")
+  out, err := os.Create("./theme/" + theme.Name + ".ts")
   if err != nil {
     log.Fatal(err)
   }
