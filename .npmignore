@@ -1,6 +1,5 @@
 /node_modules
 /tmp
-/theme
 codemirror-themes
 main.go
 rollup.config.js
