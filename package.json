@@ -1,9 +1,14 @@
 {
-  "name": "cm6-themes",
+  "name": "@ddietr/codemirror-themes",
   "version": "0.1.0",
   "license": "MIT",
   "description": "",
   "repository": "https://github.com/dennis84/codemirror-themes",
+  "keywords": [],
+  "author": {
+    "name": "Dennis Dietrich",
+    "email": "ddietr@protonmail.com"
+  },
   "type": "module",
   "exports": {
     "./theme/*": "./dist/theme/*.js"

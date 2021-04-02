@@ -1,2 +1,8 @@
-node_modules
-tmp
+/node_modules
+/tmp
+/theme
+codemirror-themes
+main.go
+rollup.config.js
+template.js
+tsconfig.json
