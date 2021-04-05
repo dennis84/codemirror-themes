@@ -1,9 +1,7 @@
-WIP
-
 ## Install
 
 ```bash
-npm i dennis84/codemirror-themes#master --save
+npm i @ddietr/codemirror-themes
 ```
 
 ## Usage
