@@ -2,39 +2,64 @@ import {EditorView} from '@codemirror/view'
 import {Extension} from '@codemirror/state'
 import {HighlightStyle, tags as t} from '@codemirror/highlight'
 
+export const config = {
+  name: 'githubLight',
+  dark: false,
+  background: '#fff',
+  foreground: '#444d56',
+  selection: '#0366d625',
+  cursor: '#044289',
+  dropdownBackground: '#fafbfc',
+  dropdownBorder: '#e1e4e8',
+  keyword: '#d73a49',
+  storage: '#d73a49',
+  variable: '#24292e',
+  parameter: '#e36209',
+  function: '#6f42c1',
+  string: '#032f62',
+  constant: '#005cc5',
+  type: '#005cc5',
+  class: '#6f42c1',
+  number: '#005cc5',
+  comment: '#6a737d',
+  heading: '#005cc5',
+  invalid: '#cb2431',
+  regexp: '#032f62',
+}
+
 export const githubLightTheme = EditorView.theme({
   '&': {
-    color: '#444d56',
-    backgroundColor: '#fff',
-    '& ::selection': {backgroundColor: '#0366d625'},
-    caretColor: '#044289',
+    color: config.foreground,
+    backgroundColor: config.background,
+    '& ::selection': {backgroundColor: config.selection},
+    caretColor: config.cursor,
   },
 
-  '&.cm-focused .cm-cursor': {borderLeftColor: '#044289'},
-  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground': {backgroundColor: '#0366d625'},
+  '&.cm-focused .cm-cursor': {borderLeftColor: config.cursor},
+  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground': {backgroundColor: config.selection},
 
-  '.cm-panels': {backgroundColor: '#fafbfc', color: '#444d56'},
+  '.cm-panels': {backgroundColor: config.dropdownBackground, color: config.foreground},
   '.cm-panels.cm-panels-top': {borderBottom: '2px solid black'},
   '.cm-panels.cm-panels-bottom': {borderTop: '2px solid black'},
 
   '.cm-searchMatch': {
-    backgroundColor: '#fafbfc',
-    outline: `1px solid #e1e4e8`
+    backgroundColor: config.dropdownBackground,
+    outline: `1px solid ${config.dropdownBorder}`
   },
   '.cm-searchMatch.cm-searchMatch-selected': {
-    backgroundColor: '#0366d625'
+    backgroundColor: config.selection
   },
 
-  '.cm-activeLine': {backgroundColor: '#0366d625'},
-  '.cm-selectionMatch': {backgroundColor: '#0366d625'},
+  '.cm-activeLine': {backgroundColor: config.selection},
+  '.cm-selectionMatch': {backgroundColor: config.selection},
 
   '.cm-matchingBracket, .cm-nonmatchingBracket': {
-    backgroundColor: '#cb2431',
+    backgroundColor: config.invalid,
     outline: 'none'
   },
   '.cm-gutters': {
-    backgroundColor: '#fff',
-    color: '#444d56',
+    backgroundColor: config.background,
+    color: config.foreground,
     border: 'none'
   },
   '.cm-lineNumbers, .cm-gutterElement': {color: 'inherit'},
@@ -42,48 +67,48 @@ export const githubLightTheme = EditorView.theme({
   '.cm-foldPlaceholder': {
     backgroundColor: 'transparent',
     border: 'none',
-    color: '#444d56'
+    color: config.foreground
   },
 
   '.cm-tooltip': {
-    border: '1px solid #e1e4e8',
-    backgroundColor: '#fafbfc'
+    border: `1px solid ${config.dropdownBorder}`,
+    backgroundColor: config.dropdownBackground
   },
   '.cm-tooltip-autocomplete': {
     '& > ul > li[aria-selected]': {
-      backgroundColor: '#0366d625',
-      color: '#444d56'
+      backgroundColor: config.selection,
+      color: config.foreground
     }
   }
-}, {dark: false})
+}, {dark: config.dark})
 
 export const githubLightHighlightStyle = HighlightStyle.define([
   // const, let, function, if
-  {tag: t.keyword, color: '#d73a49'},
+  {tag: t.keyword, color: config.keyword},
   // document
-  {tag: [t.name, t.deleted, t.character, t.macroName], color: '#24292e'},
+  {tag: [t.name, t.deleted, t.character, t.macroName], color: config.variable},
   // getElementById
-  {tag: [t.propertyName], color: '#6f42c1'},
+  {tag: [t.propertyName], color: config.function},
   // "string"
-  {tag: [t.processingInstruction, t.string, t.inserted, t.special(t.string)], color: '#032f62'},
+  {tag: [t.processingInstruction, t.string, t.inserted, t.special(t.string)], color: config.string},
   // render
-  {tag: [t.function(t.variableName), t.labelName], color: '#6f42c1'},
+  {tag: [t.function(t.variableName), t.labelName], color: config.function},
   // ???
-  {tag: [t.color, t.constant(t.name), t.standard(t.name)], color: '#005cc5'},
+  {tag: [t.color, t.constant(t.name), t.standard(t.name)], color: config.constant},
   // btn, count, fn render()
-  {tag: [t.definition(t.name), t.separator], color: '#24292e'},
-  {tag: [t.className], color: '#6f42c1'},
-  {tag: [t.number, t.changed, t.annotation, t.modifier, t.self, t.namespace], color: '#005cc5'},
-  {tag: [t.typeName], color: '#005cc5', fontStyle: ''},
-  {tag: [t.operator, t.operatorKeyword], color: '#d73a49'},
-  {tag: [t.url, t.escape, t.regexp, t.link], color: '#032f62'},
-  {tag: [t.meta, t.comment], color: '#6a737d'},
+  {tag: [t.definition(t.name), t.separator], color: config.variable},
+  {tag: [t.className], color: config.class},
+  {tag: [t.number, t.changed, t.annotation, t.modifier, t.self, t.namespace], color: config.number},
+  {tag: [t.typeName], color: config.type, fontStyle: config.type},
+  {tag: [t.operator, t.operatorKeyword], color: config.keyword},
+  {tag: [t.url, t.escape, t.regexp, t.link], color: config.regexp},
+  {tag: [t.meta, t.comment], color: config.comment},
   {tag: t.strong, fontWeight: 'bold'},
   {tag: t.emphasis, fontStyle: 'italic'},
   {tag: t.link, textDecoration: 'underline'},
-  {tag: t.heading, fontWeight: 'bold', color: '#005cc5'},
-  {tag: [t.atom, t.bool, t.special(t.variableName)], color: '#24292e'},
-  {tag: t.invalid, color: '#cb2431'},
+  {tag: t.heading, fontWeight: 'bold', color: config.heading},
+  {tag: [t.atom, t.bool, t.special(t.variableName)], color: config.variable},
+  {tag: t.invalid, color: config.invalid},
 ])
 
 export const githubLight: Extension = [

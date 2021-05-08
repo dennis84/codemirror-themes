@@ -2,39 +2,64 @@ import {EditorView} from '@codemirror/view'
 import {Extension} from '@codemirror/state'
 import {HighlightStyle, tags as t} from '@codemirror/highlight'
 
+export const config = {
+  name: 'materialDark',
+  dark: true,
+  background: '#263238',
+  foreground: '#EEFFFF',
+  selection: '#80CBC420',
+  cursor: '#FFCC00',
+  dropdownBackground: '#263238',
+  dropdownBorder: '#FFFFFF10',
+  keyword: '#89DDFF',
+  storage: '#89DDFF',
+  variable: '#EEFFFF',
+  parameter: '#EEFFFF',
+  function: '#82AAFF',
+  string: '#C3E88D',
+  constant: '#89DDFF',
+  type: '#FFCB6B',
+  class: '#FFCB6B',
+  number: '#F78C6C',
+  comment: '#546E7A',
+  heading: '#89DDFF',
+  invalid: '#f0717870',
+  regexp: '#C3E88D',
+}
+
 export const materialDarkTheme = EditorView.theme({
   '&': {
-    color: '#EEFFFF',
-    backgroundColor: '#263238',
-    '& ::selection': {backgroundColor: '#80CBC420'},
-    caretColor: '#FFCC00',
+    color: config.foreground,
+    backgroundColor: config.background,
+    '& ::selection': {backgroundColor: config.selection},
+    caretColor: config.cursor,
   },
 
-  '&.cm-focused .cm-cursor': {borderLeftColor: '#FFCC00'},
-  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground': {backgroundColor: '#80CBC420'},
+  '&.cm-focused .cm-cursor': {borderLeftColor: config.cursor},
+  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground': {backgroundColor: config.selection},
 
-  '.cm-panels': {backgroundColor: '#263238', color: '#EEFFFF'},
+  '.cm-panels': {backgroundColor: config.dropdownBackground, color: config.foreground},
   '.cm-panels.cm-panels-top': {borderBottom: '2px solid black'},
   '.cm-panels.cm-panels-bottom': {borderTop: '2px solid black'},
 
   '.cm-searchMatch': {
-    backgroundColor: '#263238',
-    outline: `1px solid #FFFFFF10`
+    backgroundColor: config.dropdownBackground,
+    outline: `1px solid ${config.dropdownBorder}`
   },
   '.cm-searchMatch.cm-searchMatch-selected': {
-    backgroundColor: '#80CBC420'
+    backgroundColor: config.selection
   },
 
-  '.cm-activeLine': {backgroundColor: '#80CBC420'},
-  '.cm-selectionMatch': {backgroundColor: '#80CBC420'},
+  '.cm-activeLine': {backgroundColor: config.selection},
+  '.cm-selectionMatch': {backgroundColor: config.selection},
 
   '.cm-matchingBracket, .cm-nonmatchingBracket': {
-    backgroundColor: '#f0717870',
+    backgroundColor: config.invalid,
     outline: 'none'
   },
   '.cm-gutters': {
-    backgroundColor: '#263238',
-    color: '#EEFFFF',
+    backgroundColor: config.background,
+    color: config.foreground,
     border: 'none'
   },
   '.cm-lineNumbers, .cm-gutterElement': {color: 'inherit'},
@@ -42,48 +67,48 @@ export const materialDarkTheme = EditorView.theme({
   '.cm-foldPlaceholder': {
     backgroundColor: 'transparent',
     border: 'none',
-    color: '#EEFFFF'
+    color: config.foreground
   },
 
   '.cm-tooltip': {
-    border: '1px solid #FFFFFF10',
-    backgroundColor: '#263238'
+    border: `1px solid ${config.dropdownBorder}`,
+    backgroundColor: config.dropdownBackground
   },
   '.cm-tooltip-autocomplete': {
     '& > ul > li[aria-selected]': {
-      backgroundColor: '#80CBC420',
-      color: '#EEFFFF'
+      backgroundColor: config.selection,
+      color: config.foreground
     }
   }
-}, {dark: true})
+}, {dark: config.dark})
 
 export const materialDarkHighlightStyle = HighlightStyle.define([
   // const, let, function, if
-  {tag: t.keyword, color: '#89DDFF'},
+  {tag: t.keyword, color: config.keyword},
   // document
-  {tag: [t.name, t.deleted, t.character, t.macroName], color: '#EEFFFF'},
+  {tag: [t.name, t.deleted, t.character, t.macroName], color: config.variable},
   // getElementById
-  {tag: [t.propertyName], color: '#82AAFF'},
+  {tag: [t.propertyName], color: config.function},
   // "string"
-  {tag: [t.processingInstruction, t.string, t.inserted, t.special(t.string)], color: '#C3E88D'},
+  {tag: [t.processingInstruction, t.string, t.inserted, t.special(t.string)], color: config.string},
   // render
-  {tag: [t.function(t.variableName), t.labelName], color: '#82AAFF'},
+  {tag: [t.function(t.variableName), t.labelName], color: config.function},
   // ???
-  {tag: [t.color, t.constant(t.name), t.standard(t.name)], color: '#89DDFF'},
+  {tag: [t.color, t.constant(t.name), t.standard(t.name)], color: config.constant},
   // btn, count, fn render()
-  {tag: [t.definition(t.name), t.separator], color: '#EEFFFF'},
-  {tag: [t.className], color: '#FFCB6B'},
-  {tag: [t.number, t.changed, t.annotation, t.modifier, t.self, t.namespace], color: '#F78C6C'},
-  {tag: [t.typeName], color: '#FFCB6B', fontStyle: ''},
-  {tag: [t.operator, t.operatorKeyword], color: '#89DDFF'},
-  {tag: [t.url, t.escape, t.regexp, t.link], color: '#C3E88D'},
-  {tag: [t.meta, t.comment], color: '#546E7A'},
+  {tag: [t.definition(t.name), t.separator], color: config.variable},
+  {tag: [t.className], color: config.class},
+  {tag: [t.number, t.changed, t.annotation, t.modifier, t.self, t.namespace], color: config.number},
+  {tag: [t.typeName], color: config.type, fontStyle: config.type},
+  {tag: [t.operator, t.operatorKeyword], color: config.keyword},
+  {tag: [t.url, t.escape, t.regexp, t.link], color: config.regexp},
+  {tag: [t.meta, t.comment], color: config.comment},
   {tag: t.strong, fontWeight: 'bold'},
   {tag: t.emphasis, fontStyle: 'italic'},
   {tag: t.link, textDecoration: 'underline'},
-  {tag: t.heading, fontWeight: 'bold', color: '#89DDFF'},
-  {tag: [t.atom, t.bool, t.special(t.variableName)], color: '#EEFFFF'},
-  {tag: t.invalid, color: '#f0717870'},
+  {tag: t.heading, fontWeight: 'bold', color: config.heading},
+  {tag: [t.atom, t.bool, t.special(t.variableName)], color: config.variable},
+  {tag: t.invalid, color: config.invalid},
 ])
 
 export const materialDark: Extension = [

@@ -2,39 +2,64 @@ import {EditorView} from '@codemirror/view'
 import {Extension} from '@codemirror/state'
 import {HighlightStyle, tags as t} from '@codemirror/highlight'
 
+export const config = {
+  name: 'githubDark',
+  dark: true,
+  background: '#24292e',
+  foreground: '#d1d5da',
+  selection: '#3392FF44',
+  cursor: '#c8e1ff',
+  dropdownBackground: '#2f363d',
+  dropdownBorder: '#1b1f23',
+  keyword: '#f97583',
+  storage: '#f97583',
+  variable: '#e1e4e8',
+  parameter: '#ffab70',
+  function: '#b392f0',
+  string: '#9ecbff',
+  constant: '#79b8ff',
+  type: '#79b8ff',
+  class: '#b392f0',
+  number: '#79b8ff',
+  comment: '#6a737d',
+  heading: '#79b8ff',
+  invalid: '#f97583',
+  regexp: '#dbedff',
+}
+
 export const githubDarkTheme = EditorView.theme({
   '&': {
-    color: '#d1d5da',
-    backgroundColor: '#24292e',
-    '& ::selection': {backgroundColor: '#3392FF44'},
-    caretColor: '#c8e1ff',
+    color: config.foreground,
+    backgroundColor: config.background,
+    '& ::selection': {backgroundColor: config.selection},
+    caretColor: config.cursor,
   },
 
-  '&.cm-focused .cm-cursor': {borderLeftColor: '#c8e1ff'},
-  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground': {backgroundColor: '#3392FF44'},
+  '&.cm-focused .cm-cursor': {borderLeftColor: config.cursor},
+  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground': {backgroundColor: config.selection},
 
-  '.cm-panels': {backgroundColor: '#2f363d', color: '#d1d5da'},
+  '.cm-panels': {backgroundColor: config.dropdownBackground, color: config.foreground},
   '.cm-panels.cm-panels-top': {borderBottom: '2px solid black'},
   '.cm-panels.cm-panels-bottom': {borderTop: '2px solid black'},
 
   '.cm-searchMatch': {
-    backgroundColor: '#2f363d',
-    outline: `1px solid #1b1f23`
+    backgroundColor: config.dropdownBackground,
+    outline: `1px solid ${config.dropdownBorder}`
   },
   '.cm-searchMatch.cm-searchMatch-selected': {
-    backgroundColor: '#3392FF44'
+    backgroundColor: config.selection
   },
 
-  '.cm-activeLine': {backgroundColor: '#3392FF44'},
-  '.cm-selectionMatch': {backgroundColor: '#3392FF44'},
+  '.cm-activeLine': {backgroundColor: config.selection},
+  '.cm-selectionMatch': {backgroundColor: config.selection},
 
   '.cm-matchingBracket, .cm-nonmatchingBracket': {
-    backgroundColor: '#f97583',
+    backgroundColor: config.invalid,
     outline: 'none'
   },
   '.cm-gutters': {
-    backgroundColor: '#24292e',
-    color: '#d1d5da',
+    backgroundColor: config.background,
+    color: config.foreground,
     border: 'none'
   },
   '.cm-lineNumbers, .cm-gutterElement': {color: 'inherit'},
@@ -42,48 +67,48 @@ export const githubDarkTheme = EditorView.theme({
   '.cm-foldPlaceholder': {
     backgroundColor: 'transparent',
     border: 'none',
-    color: '#d1d5da'
+    color: config.foreground
   },
 
   '.cm-tooltip': {
-    border: '1px solid #1b1f23',
-    backgroundColor: '#2f363d'
+    border: `1px solid ${config.dropdownBorder}`,
+    backgroundColor: config.dropdownBackground
   },
   '.cm-tooltip-autocomplete': {
     '& > ul > li[aria-selected]': {
-      backgroundColor: '#3392FF44',
-      color: '#d1d5da'
+      backgroundColor: config.selection,
+      color: config.foreground
     }
   }
-}, {dark: true})
+}, {dark: config.dark})
 
 export const githubDarkHighlightStyle = HighlightStyle.define([
   // const, let, function, if
-  {tag: t.keyword, color: '#f97583'},
+  {tag: t.keyword, color: config.keyword},
   // document
-  {tag: [t.name, t.deleted, t.character, t.macroName], color: '#e1e4e8'},
+  {tag: [t.name, t.deleted, t.character, t.macroName], color: config.variable},
   // getElementById
-  {tag: [t.propertyName], color: '#b392f0'},
+  {tag: [t.propertyName], color: config.function},
   // "string"
-  {tag: [t.processingInstruction, t.string, t.inserted, t.special(t.string)], color: '#9ecbff'},
+  {tag: [t.processingInstruction, t.string, t.inserted, t.special(t.string)], color: config.string},
   // render
-  {tag: [t.function(t.variableName), t.labelName], color: '#b392f0'},
+  {tag: [t.function(t.variableName), t.labelName], color: config.function},
   // ???
-  {tag: [t.color, t.constant(t.name), t.standard(t.name)], color: '#79b8ff'},
+  {tag: [t.color, t.constant(t.name), t.standard(t.name)], color: config.constant},
   // btn, count, fn render()
-  {tag: [t.definition(t.name), t.separator], color: '#e1e4e8'},
-  {tag: [t.className], color: '#b392f0'},
-  {tag: [t.number, t.changed, t.annotation, t.modifier, t.self, t.namespace], color: '#79b8ff'},
-  {tag: [t.typeName], color: '#79b8ff', fontStyle: ''},
-  {tag: [t.operator, t.operatorKeyword], color: '#f97583'},
-  {tag: [t.url, t.escape, t.regexp, t.link], color: '#dbedff'},
-  {tag: [t.meta, t.comment], color: '#6a737d'},
+  {tag: [t.definition(t.name), t.separator], color: config.variable},
+  {tag: [t.className], color: config.class},
+  {tag: [t.number, t.changed, t.annotation, t.modifier, t.self, t.namespace], color: config.number},
+  {tag: [t.typeName], color: config.type, fontStyle: config.type},
+  {tag: [t.operator, t.operatorKeyword], color: config.keyword},
+  {tag: [t.url, t.escape, t.regexp, t.link], color: config.regexp},
+  {tag: [t.meta, t.comment], color: config.comment},
   {tag: t.strong, fontWeight: 'bold'},
   {tag: t.emphasis, fontStyle: 'italic'},
   {tag: t.link, textDecoration: 'underline'},
-  {tag: t.heading, fontWeight: 'bold', color: '#79b8ff'},
-  {tag: [t.atom, t.bool, t.special(t.variableName)], color: '#e1e4e8'},
-  {tag: t.invalid, color: '#f97583'},
+  {tag: t.heading, fontWeight: 'bold', color: config.heading},
+  {tag: [t.atom, t.bool, t.special(t.variableName)], color: config.variable},
+  {tag: t.invalid, color: config.invalid},
 ])
 
 export const githubDark: Extension = [

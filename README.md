@@ -1,3 +1,5 @@
+# Codemirror 6 Themes
+
 ## Install
 
 ```bash
@@ -14,4 +16,12 @@ import {solarizedDark} from 'codemirror-themes/theme/solarized-dark'
 import {dracula} from 'codemirror-themes/theme/dracula'
 import {githubLight} from 'codemirror-themes/theme/github-light'
 import {githubDark} from 'codemirror-themes/theme/github-dark'
+```
+
+## Build
+
+```bash
+go build
+./m
+npm i
 ```

@@ -2,39 +2,64 @@ import {EditorView} from '@codemirror/view'
 import {Extension} from '@codemirror/state'
 import {HighlightStyle, tags as t} from '@codemirror/highlight'
 
+export const config = {
+  name: 'dracula',
+  dark: true,
+  background: '#282A36',
+  foreground: '#F8F8F2',
+  selection: '#44475A',
+  cursor: '#F8F8F2',
+  dropdownBackground: '#343746',
+  dropdownBorder: '#191A21',
+  keyword: '#FF79C6',
+  storage: '#FF79C6',
+  variable: '#BD93F9',
+  parameter: '#FFB86C',
+  function: '#50FA7B',
+  string: '#F1FA8C',
+  constant: '#BD93F9',
+  type: '#8BE9FD',
+  class: '#8BE9FD',
+  number: '#BD93F9',
+  comment: '#6272A4',
+  heading: '#BD93F9',
+  invalid: '#FF5555',
+  regexp: '#F1FA8C',
+}
+
 export const draculaTheme = EditorView.theme({
   '&': {
-    color: '#F8F8F2',
-    backgroundColor: '#282A36',
-    '& ::selection': {backgroundColor: '#44475A'},
-    caretColor: '#F8F8F2',
+    color: config.foreground,
+    backgroundColor: config.background,
+    '& ::selection': {backgroundColor: config.selection},
+    caretColor: config.cursor,
   },
 
-  '&.cm-focused .cm-cursor': {borderLeftColor: '#F8F8F2'},
-  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground': {backgroundColor: '#44475A'},
+  '&.cm-focused .cm-cursor': {borderLeftColor: config.cursor},
+  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground': {backgroundColor: config.selection},
 
-  '.cm-panels': {backgroundColor: '#343746', color: '#F8F8F2'},
+  '.cm-panels': {backgroundColor: config.dropdownBackground, color: config.foreground},
   '.cm-panels.cm-panels-top': {borderBottom: '2px solid black'},
   '.cm-panels.cm-panels-bottom': {borderTop: '2px solid black'},
 
   '.cm-searchMatch': {
-    backgroundColor: '#343746',
-    outline: `1px solid #191A21`
+    backgroundColor: config.dropdownBackground,
+    outline: `1px solid ${config.dropdownBorder}`
   },
   '.cm-searchMatch.cm-searchMatch-selected': {
-    backgroundColor: '#44475A'
+    backgroundColor: config.selection
   },
 
-  '.cm-activeLine': {backgroundColor: '#44475A'},
-  '.cm-selectionMatch': {backgroundColor: '#44475A'},
+  '.cm-activeLine': {backgroundColor: config.selection},
+  '.cm-selectionMatch': {backgroundColor: config.selection},
 
   '.cm-matchingBracket, .cm-nonmatchingBracket': {
-    backgroundColor: '#FF5555',
+    backgroundColor: config.invalid,
     outline: 'none'
   },
   '.cm-gutters': {
-    backgroundColor: '#282A36',
-    color: '#F8F8F2',
+    backgroundColor: config.background,
+    color: config.foreground,
     border: 'none'
   },
   '.cm-lineNumbers, .cm-gutterElement': {color: 'inherit'},
@@ -42,48 +67,48 @@ export const draculaTheme = EditorView.theme({
   '.cm-foldPlaceholder': {
     backgroundColor: 'transparent',
     border: 'none',
-    color: '#F8F8F2'
+    color: config.foreground
   },
 
   '.cm-tooltip': {
-    border: '1px solid #191A21',
-    backgroundColor: '#343746'
+    border: `1px solid ${config.dropdownBorder}`,
+    backgroundColor: config.dropdownBackground
   },
   '.cm-tooltip-autocomplete': {
     '& > ul > li[aria-selected]': {
-      backgroundColor: '#44475A',
-      color: '#F8F8F2'
+      backgroundColor: config.selection,
+      color: config.foreground
     }
   }
-}, {dark: true})
+}, {dark: config.dark})
 
 export const draculaHighlightStyle = HighlightStyle.define([
   // const, let, function, if
-  {tag: t.keyword, color: '#FF79C6'},
+  {tag: t.keyword, color: config.keyword},
   // document
-  {tag: [t.name, t.deleted, t.character, t.macroName], color: '#BD93F9'},
+  {tag: [t.name, t.deleted, t.character, t.macroName], color: config.variable},
   // getElementById
-  {tag: [t.propertyName], color: '#50FA7B'},
+  {tag: [t.propertyName], color: config.function},
   // "string"
-  {tag: [t.processingInstruction, t.string, t.inserted, t.special(t.string)], color: '#F1FA8C'},
+  {tag: [t.processingInstruction, t.string, t.inserted, t.special(t.string)], color: config.string},
   // render
-  {tag: [t.function(t.variableName), t.labelName], color: '#50FA7B'},
+  {tag: [t.function(t.variableName), t.labelName], color: config.function},
   // ???
-  {tag: [t.color, t.constant(t.name), t.standard(t.name)], color: '#BD93F9'},
+  {tag: [t.color, t.constant(t.name), t.standard(t.name)], color: config.constant},
   // btn, count, fn render()
-  {tag: [t.definition(t.name), t.separator], color: '#BD93F9'},
-  {tag: [t.className], color: '#8BE9FD'},
-  {tag: [t.number, t.changed, t.annotation, t.modifier, t.self, t.namespace], color: '#BD93F9'},
-  {tag: [t.typeName], color: '#8BE9FD', fontStyle: 'italic'},
-  {tag: [t.operator, t.operatorKeyword], color: '#FF79C6'},
-  {tag: [t.url, t.escape, t.regexp, t.link], color: '#F1FA8C'},
-  {tag: [t.meta, t.comment], color: '#6272A4'},
+  {tag: [t.definition(t.name), t.separator], color: config.variable},
+  {tag: [t.className], color: config.class},
+  {tag: [t.number, t.changed, t.annotation, t.modifier, t.self, t.namespace], color: config.number},
+  {tag: [t.typeName], color: config.type, fontStyle: config.type},
+  {tag: [t.operator, t.operatorKeyword], color: config.keyword},
+  {tag: [t.url, t.escape, t.regexp, t.link], color: config.regexp},
+  {tag: [t.meta, t.comment], color: config.comment},
   {tag: t.strong, fontWeight: 'bold'},
   {tag: t.emphasis, fontStyle: 'italic'},
   {tag: t.link, textDecoration: 'underline'},
-  {tag: t.heading, fontWeight: 'bold', color: '#BD93F9'},
-  {tag: [t.atom, t.bool, t.special(t.variableName)], color: '#BD93F9'},
-  {tag: t.invalid, color: '#FF5555'},
+  {tag: t.heading, fontWeight: 'bold', color: config.heading},
+  {tag: [t.atom, t.bool, t.special(t.variableName)], color: config.variable},
+  {tag: t.invalid, color: config.invalid},
 ])
 
 export const dracula: Extension = [

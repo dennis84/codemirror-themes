@@ -2,39 +2,64 @@ import {EditorView} from '@codemirror/view'
 import {Extension} from '@codemirror/state'
 import {HighlightStyle, tags as t} from '@codemirror/highlight'
 
+export const config = {
+  name: '{{.ExportPrefix}}',
+  dark: {{.Dark}},
+  background: '{{.Background.Color}}',
+  foreground: '{{.Foreground.Color}}',
+  selection: '{{.Selection.Color}}',
+  cursor: '{{.Cursor.Color}}',
+  dropdownBackground: '{{.DropdownBackground.Color}}',
+  dropdownBorder: '{{.DropdownBorder.Color}}',
+  keyword: '{{.Keyword.Color}}',
+  storage: '{{.Storage.Color}}',
+  variable: '{{.Variable.Color}}',
+  parameter: '{{.Parameter.Color}}',
+  function: '{{.Function.Color}}',
+  string: '{{.String.Color}}',
+  constant: '{{.Constant.Color}}',
+  type: '{{.Type.Color}}',
+  class: '{{.Class.Color}}',
+  number: '{{.Number.Color}}',
+  comment: '{{.Comment.Color}}',
+  heading: '{{.Heading.Color}}',
+  invalid: '{{.Invalid.Color}}',
+  regexp: '{{.Regexp.Color}}',
+}
+
 export const {{.ExportPrefix}}Theme = EditorView.theme({
   '&': {
-    color: '{{.Foreground.Color}}',
-    backgroundColor: '{{.Background.Color}}',
-    '& ::selection': {backgroundColor: '{{.Selection.Color}}'},
-    caretColor: '{{.Cursor.Color}}',
+    color: config.foreground,
+    backgroundColor: config.background,
+    '& ::selection': {backgroundColor: config.selection},
+    caretColor: config.cursor,
   },
 
-  '&.cm-focused .cm-cursor': {borderLeftColor: '{{.Cursor.Color}}'},
-  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground': {backgroundColor: '{{.Selection.Color}}'},
+  '&.cm-focused .cm-cursor': {borderLeftColor: config.cursor},
+  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground': {backgroundColor: config.selection},
 
-  '.cm-panels': {backgroundColor: '{{.DropdownBackground.Color}}', color: '{{.Foreground.Color}}'},
+  '.cm-panels': {backgroundColor: config.dropdownBackground, color: config.foreground},
   '.cm-panels.cm-panels-top': {borderBottom: '2px solid black'},
   '.cm-panels.cm-panels-bottom': {borderTop: '2px solid black'},
 
   '.cm-searchMatch': {
-    backgroundColor: '{{.DropdownBackground.Color}}',
-    outline: `1px solid {{.DropdownBorder.Color}}`
+    backgroundColor: config.dropdownBackground,
+    outline: `1px solid ${config.dropdownBorder}`
   },
   '.cm-searchMatch.cm-searchMatch-selected': {
-    backgroundColor: '{{.Selection.Color}}'
+    backgroundColor: config.selection
   },
 
-  '.cm-activeLine': {backgroundColor: '{{.Selection.Color}}'},
-  '.cm-selectionMatch': {backgroundColor: '{{.Selection.Color}}'},
+  '.cm-activeLine': {backgroundColor: config.selection},
+  '.cm-selectionMatch': {backgroundColor: config.selection},
 
   '.cm-matchingBracket, .cm-nonmatchingBracket': {
-    backgroundColor: '{{.Invalid.Color}}',
+    backgroundColor: config.invalid,
     outline: 'none'
   },
   '.cm-gutters': {
-    backgroundColor: '{{.Background.Color}}',
-    color: '{{.Foreground.Color}}',
+    backgroundColor: config.background,
+    color: config.foreground,
     border: 'none'
   },
   '.cm-lineNumbers, .cm-gutterElement': {color: 'inherit'},
@@ -42,48 +67,48 @@ export const {{.ExportPrefix}}Theme = EditorView.theme({
   '.cm-foldPlaceholder': {
     backgroundColor: 'transparent',
     border: 'none',
-    color: '{{.Foreground.Color}}'
+    color: config.foreground
   },
 
   '.cm-tooltip': {
-    border: '1px solid {{.DropdownBorder.Color}}',
-    backgroundColor: '{{.DropdownBackground.Color}}'
+    border: `1px solid ${config.dropdownBorder}`,
+    backgroundColor: config.dropdownBackground
   },
   '.cm-tooltip-autocomplete': {
     '& > ul > li[aria-selected]': {
-      backgroundColor: '{{.Selection.Color}}',
-      color: '{{.Foreground.Color}}'
+      backgroundColor: config.selection,
+      color: config.foreground
     }
   }
-}, {dark: {{.Dark}}})
+}, {dark: config.dark})
 
 export const {{.ExportPrefix}}HighlightStyle = HighlightStyle.define([
   // const, let, function, if
-  {tag: t.keyword, color: '{{.Keyword.Color}}'},
+  {tag: t.keyword, color: config.keyword},
   // document
-  {tag: [t.name, t.deleted, t.character, t.macroName], color: '{{.Variable.Color}}'},
+  {tag: [t.name, t.deleted, t.character, t.macroName], color: config.variable},
   // getElementById
-  {tag: [t.propertyName], color: '{{.Function.Color}}'},
+  {tag: [t.propertyName], color: config.function},
   // "string"
-  {tag: [t.processingInstruction, t.string, t.inserted, t.special(t.string)], color: '{{.String.Color}}'},
+  {tag: [t.processingInstruction, t.string, t.inserted, t.special(t.string)], color: config.string},
   // render
-  {tag: [t.function(t.variableName), t.labelName], color: '{{.Function.Color}}'},
+  {tag: [t.function(t.variableName), t.labelName], color: config.function},
   // ???
-  {tag: [t.color, t.constant(t.name), t.standard(t.name)], color: '{{.Constant.Color}}'},
+  {tag: [t.color, t.constant(t.name), t.standard(t.name)], color: config.constant},
   // btn, count, fn render()
-  {tag: [t.definition(t.name), t.separator], color: '{{.Variable.Color}}'},
-  {tag: [t.className], color: '{{.Class.Color}}'},
-  {tag: [t.number, t.changed, t.annotation, t.modifier, t.self, t.namespace], color: '{{.Number.Color}}'},
-  {tag: [t.typeName], color: '{{.Type.Color}}', fontStyle: '{{.Type.FontStyle}}'},
-  {tag: [t.operator, t.operatorKeyword], color: '{{.Keyword.Color}}'},
-  {tag: [t.url, t.escape, t.regexp, t.link], color: '{{.Regexp.Color}}'},
-  {tag: [t.meta, t.comment], color: '{{.Comment.Color}}'},
+  {tag: [t.definition(t.name), t.separator], color: config.variable},
+  {tag: [t.className], color: config.class},
+  {tag: [t.number, t.changed, t.annotation, t.modifier, t.self, t.namespace], color: config.number},
+  {tag: [t.typeName], color: config.type, fontStyle: config.type},
+  {tag: [t.operator, t.operatorKeyword], color: config.keyword},
+  {tag: [t.url, t.escape, t.regexp, t.link], color: config.regexp},
+  {tag: [t.meta, t.comment], color: config.comment},
   {tag: t.strong, fontWeight: 'bold'},
   {tag: t.emphasis, fontStyle: 'italic'},
   {tag: t.link, textDecoration: 'underline'},
-  {tag: t.heading, fontWeight: 'bold', color: '{{.Heading.Color}}'},
-  {tag: [t.atom, t.bool, t.special(t.variableName)], color: '{{.Variable.Color}}'},
-  {tag: t.invalid, color: '{{.Invalid.Color}}'},
+  {tag: t.heading, fontWeight: 'bold', color: config.heading},
+  {tag: [t.atom, t.bool, t.special(t.variableName)], color: config.variable},
+  {tag: t.invalid, color: config.invalid},
 ])
 
 export const {{.ExportPrefix}}: Extension = [

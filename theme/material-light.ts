@@ -2,39 +2,64 @@ import {EditorView} from '@codemirror/view'
 import {Extension} from '@codemirror/state'
 import {HighlightStyle, tags as t} from '@codemirror/highlight'
 
+export const config = {
+  name: 'materialLight',
+  dark: false,
+  background: '#FAFAFA',
+  foreground: '#90A4AE',
+  selection: '#80CBC440',
+  cursor: '#272727',
+  dropdownBackground: '#FAFAFA',
+  dropdownBorder: '#00000010',
+  keyword: '#39ADB5',
+  storage: '#39ADB5',
+  variable: '#90A4AE',
+  parameter: '#90A4AE',
+  function: '#6182B8',
+  string: '#91B859',
+  constant: '#39ADB5',
+  type: '#E2931D',
+  class: '#E2931D',
+  number: '#F76D47',
+  comment: '#90A4AE',
+  heading: '#39ADB5',
+  invalid: '#E5393570',
+  regexp: '#91B859',
+}
+
 export const materialLightTheme = EditorView.theme({
   '&': {
-    color: '#90A4AE',
-    backgroundColor: '#FAFAFA',
-    '& ::selection': {backgroundColor: '#80CBC440'},
-    caretColor: '#272727',
+    color: config.foreground,
+    backgroundColor: config.background,
+    '& ::selection': {backgroundColor: config.selection},
+    caretColor: config.cursor,
   },
 
-  '&.cm-focused .cm-cursor': {borderLeftColor: '#272727'},
-  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground': {backgroundColor: '#80CBC440'},
+  '&.cm-focused .cm-cursor': {borderLeftColor: config.cursor},
+  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground': {backgroundColor: config.selection},
 
-  '.cm-panels': {backgroundColor: '#FAFAFA', color: '#90A4AE'},
+  '.cm-panels': {backgroundColor: config.dropdownBackground, color: config.foreground},
   '.cm-panels.cm-panels-top': {borderBottom: '2px solid black'},
   '.cm-panels.cm-panels-bottom': {borderTop: '2px solid black'},
 
   '.cm-searchMatch': {
-    backgroundColor: '#FAFAFA',
-    outline: `1px solid #00000010`
+    backgroundColor: config.dropdownBackground,
+    outline: `1px solid ${config.dropdownBorder}`
   },
   '.cm-searchMatch.cm-searchMatch-selected': {
-    backgroundColor: '#80CBC440'
+    backgroundColor: config.selection
   },
 
-  '.cm-activeLine': {backgroundColor: '#80CBC440'},
-  '.cm-selectionMatch': {backgroundColor: '#80CBC440'},
+  '.cm-activeLine': {backgroundColor: config.selection},
+  '.cm-selectionMatch': {backgroundColor: config.selection},
 
   '.cm-matchingBracket, .cm-nonmatchingBracket': {
-    backgroundColor: '#E5393570',
+    backgroundColor: config.invalid,
     outline: 'none'
   },
   '.cm-gutters': {
-    backgroundColor: '#FAFAFA',
-    color: '#90A4AE',
+    backgroundColor: config.background,
+    color: config.foreground,
     border: 'none'
   },
   '.cm-lineNumbers, .cm-gutterElement': {color: 'inherit'},
@@ -42,48 +67,48 @@ export const materialLightTheme = EditorView.theme({
   '.cm-foldPlaceholder': {
     backgroundColor: 'transparent',
     border: 'none',
-    color: '#90A4AE'
+    color: config.foreground
   },
 
   '.cm-tooltip': {
-    border: '1px solid #00000010',
-    backgroundColor: '#FAFAFA'
+    border: `1px solid ${config.dropdownBorder}`,
+    backgroundColor: config.dropdownBackground
   },
   '.cm-tooltip-autocomplete': {
     '& > ul > li[aria-selected]': {
-      backgroundColor: '#80CBC440',
-      color: '#90A4AE'
+      backgroundColor: config.selection,
+      color: config.foreground
     }
   }
-}, {dark: false})
+}, {dark: config.dark})
 
 export const materialLightHighlightStyle = HighlightStyle.define([
   // const, let, function, if
-  {tag: t.keyword, color: '#39ADB5'},
+  {tag: t.keyword, color: config.keyword},
   // document
-  {tag: [t.name, t.deleted, t.character, t.macroName], color: '#90A4AE'},
+  {tag: [t.name, t.deleted, t.character, t.macroName], color: config.variable},
   // getElementById
-  {tag: [t.propertyName], color: '#6182B8'},
+  {tag: [t.propertyName], color: config.function},
   // "string"
-  {tag: [t.processingInstruction, t.string, t.inserted, t.special(t.string)], color: '#91B859'},
+  {tag: [t.processingInstruction, t.string, t.inserted, t.special(t.string)], color: config.string},
   // render
-  {tag: [t.function(t.variableName), t.labelName], color: '#6182B8'},
+  {tag: [t.function(t.variableName), t.labelName], color: config.function},
   // ???
-  {tag: [t.color, t.constant(t.name), t.standard(t.name)], color: '#39ADB5'},
+  {tag: [t.color, t.constant(t.name), t.standard(t.name)], color: config.constant},
   // btn, count, fn render()
-  {tag: [t.definition(t.name), t.separator], color: '#90A4AE'},
-  {tag: [t.className], color: '#E2931D'},
-  {tag: [t.number, t.changed, t.annotation, t.modifier, t.self, t.namespace], color: '#F76D47'},
-  {tag: [t.typeName], color: '#E2931D', fontStyle: ''},
-  {tag: [t.operator, t.operatorKeyword], color: '#39ADB5'},
-  {tag: [t.url, t.escape, t.regexp, t.link], color: '#91B859'},
-  {tag: [t.meta, t.comment], color: '#90A4AE'},
+  {tag: [t.definition(t.name), t.separator], color: config.variable},
+  {tag: [t.className], color: config.class},
+  {tag: [t.number, t.changed, t.annotation, t.modifier, t.self, t.namespace], color: config.number},
+  {tag: [t.typeName], color: config.type, fontStyle: config.type},
+  {tag: [t.operator, t.operatorKeyword], color: config.keyword},
+  {tag: [t.url, t.escape, t.regexp, t.link], color: config.regexp},
+  {tag: [t.meta, t.comment], color: config.comment},
   {tag: t.strong, fontWeight: 'bold'},
   {tag: t.emphasis, fontStyle: 'italic'},
   {tag: t.link, textDecoration: 'underline'},
-  {tag: t.heading, fontWeight: 'bold', color: '#39ADB5'},
-  {tag: [t.atom, t.bool, t.special(t.variableName)], color: '#90A4AE'},
-  {tag: t.invalid, color: '#E5393570'},
+  {tag: t.heading, fontWeight: 'bold', color: config.heading},
+  {tag: [t.atom, t.bool, t.special(t.variableName)], color: config.variable},
+  {tag: t.invalid, color: config.invalid},
 ])
 
 export const materialLight: Extension = [
