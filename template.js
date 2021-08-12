@@ -31,12 +31,12 @@ export const {{.ExportPrefix}}Theme = EditorView.theme({
   '&': {
     color: config.foreground,
     backgroundColor: config.background,
-    '& ::selection': {backgroundColor: config.selection},
-    caretColor: config.cursor,
   },
 
+  '.cm-content': {caretColor: config.cursor},
+
   '&.cm-focused .cm-cursor': {borderLeftColor: config.cursor},
-  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground': {backgroundColor: config.selection},
+  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground, & ::selection': {backgroundColor: config.selection},
 
   '.cm-panels': {backgroundColor: config.dropdownBackground, color: config.foreground},
   '.cm-panels.cm-panels-top': {borderBottom: '2px solid black'},
@@ -51,6 +51,7 @@ export const {{.ExportPrefix}}Theme = EditorView.theme({
   },
 
   '.cm-activeLine': {backgroundColor: config.selection},
+  ".cm-activeLineGutter": {backgroundColor: config.background},
   '.cm-selectionMatch': {backgroundColor: config.selection},
 
   '.cm-matchingBracket, .cm-nonmatchingBracket': {
@@ -109,6 +110,7 @@ export const {{.ExportPrefix}}HighlightStyle = HighlightStyle.define([
   {tag: t.heading, fontWeight: 'bold', color: config.heading},
   {tag: [t.atom, t.bool, t.special(t.variableName)], color: config.variable},
   {tag: t.invalid, color: config.invalid},
+  {tag: t.strikethrough, textDecoration: 'line-through'},
 ])
 
 export const {{.ExportPrefix}}: Extension = [
