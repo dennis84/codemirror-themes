@@ -227,8 +227,8 @@ func makeTemplateParams(theme Theme, content []byte) TemplateParams {
     Foreground:         find(data, "foreground", "input.foreground"),
     Selection:          find(data, "editor.selectionBackground"),
     Cursor:             find(data, "editorCursor.foreground", "foreground"),
-    DropdownBackground: find(data, "dropdown.background"),
-    DropdownBorder:     find(data, "dropdown.border"),
+    DropdownBackground: find(data, "editor.background"),
+    DropdownBorder:     find(data, "dropdown.border", "foreground"),
     // Syntax
     // ========================================================================
     Keyword:            find(data, "keyword"),

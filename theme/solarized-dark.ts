@@ -9,7 +9,7 @@ export const config = {
   foreground: '#93a1a1',
   selection: '#073642',
   cursor: '#839496',
-  dropdownBackground: '#00212b',
+  dropdownBackground: '#002b36',
   dropdownBorder: '#2aa19899',
   keyword: '#859900',
   storage: '#93A1A1',
@@ -31,12 +31,12 @@ export const solarizedDarkTheme = EditorView.theme({
   '&': {
     color: config.foreground,
     backgroundColor: config.background,
-    '& ::selection': {backgroundColor: config.selection},
-    caretColor: config.cursor,
   },
 
+  '.cm-content': {caretColor: config.cursor},
+
   '&.cm-focused .cm-cursor': {borderLeftColor: config.cursor},
-  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground': {backgroundColor: config.selection},
+  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground, & ::selection': {backgroundColor: config.selection},
 
   '.cm-panels': {backgroundColor: config.dropdownBackground, color: config.foreground},
   '.cm-panels.cm-panels-top': {borderBottom: '2px solid black'},
@@ -51,6 +51,7 @@ export const solarizedDarkTheme = EditorView.theme({
   },
 
   '.cm-activeLine': {backgroundColor: config.selection},
+  ".cm-activeLineGutter": {backgroundColor: config.background},
   '.cm-selectionMatch': {backgroundColor: config.selection},
 
   '.cm-matchingBracket, .cm-nonmatchingBracket': {
@@ -72,11 +73,12 @@ export const solarizedDarkTheme = EditorView.theme({
 
   '.cm-tooltip': {
     border: `1px solid ${config.dropdownBorder}`,
-    backgroundColor: config.dropdownBackground
+    backgroundColor: config.dropdownBackground,
+    color: config.foreground
   },
-  '.cm-tooltip-autocomplete': {
+  '.cm-tooltip.cm-tooltip-autocomplete': {
     '& > ul > li[aria-selected]': {
-      backgroundColor: config.selection,
+      background: config.selection,
       color: config.foreground
     }
   }
@@ -109,6 +111,7 @@ export const solarizedDarkHighlightStyle = HighlightStyle.define([
   {tag: t.heading, fontWeight: 'bold', color: config.heading},
   {tag: [t.atom, t.bool, t.special(t.variableName)], color: config.variable},
   {tag: t.invalid, color: config.invalid},
+  {tag: t.strikethrough, textDecoration: 'line-through'},
 ])
 
 export const solarizedDark: Extension = [

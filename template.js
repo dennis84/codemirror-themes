@@ -73,11 +73,12 @@ export const {{.ExportPrefix}}Theme = EditorView.theme({
 
   '.cm-tooltip': {
     border: `1px solid ${config.dropdownBorder}`,
-    backgroundColor: config.dropdownBackground
+    backgroundColor: config.dropdownBackground,
+    color: config.foreground
   },
-  '.cm-tooltip-autocomplete': {
+  '.cm-tooltip.cm-tooltip-autocomplete': {
     '& > ul > li[aria-selected]': {
-      backgroundColor: config.selection,
+      background: config.selection,
       color: config.foreground
     }
   }
