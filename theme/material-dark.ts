@@ -50,8 +50,8 @@ export const materialDarkTheme = EditorView.theme({
     backgroundColor: config.selection
   },
 
-  '.cm-activeLine': {backgroundColor: config.selection},
-  ".cm-activeLineGutter": {backgroundColor: config.background},
+  '&.cm-focused .cm-activeLine': {backgroundColor: config.selection},
+  '&.cm-focused .cm-activeLineGutter': {backgroundColor: config.background},
   '.cm-selectionMatch': {backgroundColor: config.selection},
 
   '.cm-matchingBracket, .cm-nonmatchingBracket': {
