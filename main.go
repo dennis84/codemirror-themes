@@ -5,7 +5,6 @@ import (
   "log"
   "os"
   "io"
-  "sort"
   "strings"
   "reflect"
   "text/template"
@@ -108,14 +107,14 @@ func generateTheme(theme Theme, content []byte) {
 }
 
 type Style struct{
-  Color string
-  FontStyle string
-  Prio int
+  Color *string
+  FontStyle *string
+  Prio *int
 }
 
 type TokenColorSettings struct{
-  Foreground string
-  FontStyle string
+  Foreground *string
+  FontStyle *string
 }
 
 type TokenColor struct{
@@ -129,12 +128,12 @@ type VsCodeTheme struct{
 }
 
 func find(data VsCodeTheme, keys ...string) Style {
+  style := Style{}
+
   for _, key := range keys {
     if value, exist := data.Colors[key]; exist {
-      return Style{Color: value}
+      return Style{Color: &value}
     }
-
-    results := []Style{}
 
     for _, tokenColor := range data.TokenColors {
       scopes := []string{}
@@ -157,28 +156,27 @@ func find(data VsCodeTheme, keys ...string) Style {
           panic(fmt.Sprintf("Unecpected scope type %s", rt))
       }
 
-      for j, scope := range scopes {
-        if scope == key {
-          item := Style{
-            Color: tokenColor.Settings.Foreground,
-            FontStyle: tokenColor.Settings.FontStyle,
-            Prio: j,
-          }
-          results = append(results, item)
+      for i, scope := range scopes {
+        if (
+          scope == key &&
+          (style.Color == nil || *style.Prio > i) &&
+          tokenColor.Settings.Foreground != nil) {
+          style.Color = tokenColor.Settings.Foreground
+          style.Prio = &i
+        }
+
+        if scope == key && style.FontStyle == nil && tokenColor.Settings.FontStyle != nil {
+          style.FontStyle = tokenColor.Settings.FontStyle
         }
       }
     }
-
-    sort.Slice(results, func(i, j int) bool {
-      return results[i].Prio < results[j].Prio
-    })
-
-    if len(results) > 0 {
-      return results[0]
-    }
   }
 
-  panic(fmt.Sprintf("Could not find color by: %s", keys))
+  if style.Color == nil {
+    panic(fmt.Sprintf("Could not find color by: %s", keys))
+  }
+
+  return style
 }
 
 type TemplateParams struct {
@@ -237,8 +235,8 @@ func makeTemplateParams(theme Theme, content []byte) TemplateParams {
     // ========================================================================
     Keyword:            find(data, "keyword"),
     Storage:            find(data, "storage", "keyword"),
-    Variable:           find(data, "variable.other", "variable.language", "variable", "foreground"),
-    Parameter:          find(data, "variable.parameter", "variable"),
+    Variable:           find(data, "variable.parameter", "variable.other", "variable.language", "variable", "foreground"),
+    Parameter:          find(data, "variable.parameter", "variable.other", "variable"),
     Function:           find(data, "support.function", "support", "entity.name.function", "entity.name"),
     String:             find(data, "string"),
     Constant:           find(data, "constant", "constant.character", "constant.keyword"),
@@ -247,7 +245,7 @@ func makeTemplateParams(theme Theme, content []byte) TemplateParams {
     Number:             find(data, "constant.numeric", "constant"),
     Comment:            find(data, "comment"),
     Heading:            find(data, "markup.heading", "markup.heading.setext"),
-    Invalid:            find(data, "invalid", "editorError.foreground", "errorForeground"),
+    Invalid:            find(data, "invalid", "editorError.foreground", "errorForeground", "foreground", "input.foreground"),
     Regexp:             find(data, "string.regexp", "string"),
   }
 

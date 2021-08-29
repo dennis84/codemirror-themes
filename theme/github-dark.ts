@@ -15,8 +15,8 @@ export const config = {
   matchingBracket: '#17E5E650',
   keyword: '#f97583',
   storage: '#f97583',
-  variable: '#e1e4e8',
-  parameter: '#ffab70',
+  variable: '#d1d5da',
+  parameter: '#e1e4e8',
   function: '#79b8ff',
   string: '#9ecbff',
   constant: '#79b8ff',
@@ -26,7 +26,7 @@ export const config = {
   comment: '#6a737d',
   heading: '#79b8ff',
   invalid: '#f97583',
-  regexp: '#dbedff',
+  regexp: '#9ecbff',
 }
 
 export const githubDarkTheme = EditorView.theme({
