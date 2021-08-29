@@ -11,6 +11,8 @@ export const config = {
   cursor: '{{.Cursor.Color}}',
   dropdownBackground: '{{.DropdownBackground.Color}}',
   dropdownBorder: '{{.DropdownBorder.Color}}',
+  activeLine: '{{.ActiveLine.Color}}',
+  matchingBracket: '{{.MatchingBracket.Color}}',
   keyword: '{{.Keyword.Color}}',
   storage: '{{.Storage.Color}}',
   variable: '{{.Variable.Color}}',
@@ -50,12 +52,12 @@ export const {{.ExportPrefix}}Theme = EditorView.theme({
     backgroundColor: config.selection
   },
 
-  '.cm-activeLine': {backgroundColor: config.selection},
+  '.cm-activeLine': {backgroundColor: config.activeLine},
   '.cm-activeLineGutter': {backgroundColor: config.background},
   '.cm-selectionMatch': {backgroundColor: config.selection},
 
   '.cm-matchingBracket, .cm-nonmatchingBracket': {
-    backgroundColor: config.invalid,
+    backgroundColor: config.matchingBracket,
     outline: 'none'
   },
   '.cm-gutters': {
@@ -81,7 +83,7 @@ export const {{.ExportPrefix}}Theme = EditorView.theme({
       background: config.selection,
       color: config.foreground
     }
-  }
+  },
 }, {dark: config.dark})
 
 export const {{.ExportPrefix}}HighlightStyle = HighlightStyle.define([

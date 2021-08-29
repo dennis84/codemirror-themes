@@ -11,6 +11,8 @@ export const config = {
   cursor: '#272727',
   dropdownBackground: '#FAFAFA',
   dropdownBorder: '#00000010',
+  activeLine: '#CCD7DA50',
+  matchingBracket: '#FAFAFA',
   keyword: '#39ADB5',
   storage: '#39ADB5',
   variable: '#90A4AE',
@@ -50,12 +52,12 @@ export const materialLightTheme = EditorView.theme({
     backgroundColor: config.selection
   },
 
-  '.cm-activeLine': {backgroundColor: config.selection},
+  '.cm-activeLine': {backgroundColor: config.activeLine},
   '.cm-activeLineGutter': {backgroundColor: config.background},
   '.cm-selectionMatch': {backgroundColor: config.selection},
 
   '.cm-matchingBracket, .cm-nonmatchingBracket': {
-    backgroundColor: config.invalid,
+    backgroundColor: config.matchingBracket,
     outline: 'none'
   },
   '.cm-gutters': {
@@ -81,7 +83,7 @@ export const materialLightTheme = EditorView.theme({
       background: config.selection,
       color: config.foreground
     }
-  }
+  },
 }, {dark: config.dark})
 
 export const materialLightHighlightStyle = HighlightStyle.define([

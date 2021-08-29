@@ -11,11 +11,13 @@ export const config = {
   cursor: '#044289',
   dropdownBackground: '#fff',
   dropdownBorder: '#e1e4e8',
+  activeLine: '#f6f8fa',
+  matchingBracket: '#34d05840',
   keyword: '#d73a49',
   storage: '#d73a49',
   variable: '#24292e',
   parameter: '#e36209',
-  function: '#6f42c1',
+  function: '#005cc5',
   string: '#032f62',
   constant: '#005cc5',
   type: '#005cc5',
@@ -50,12 +52,12 @@ export const githubLightTheme = EditorView.theme({
     backgroundColor: config.selection
   },
 
-  '.cm-activeLine': {backgroundColor: config.selection},
+  '.cm-activeLine': {backgroundColor: config.activeLine},
   '.cm-activeLineGutter': {backgroundColor: config.background},
   '.cm-selectionMatch': {backgroundColor: config.selection},
 
   '.cm-matchingBracket, .cm-nonmatchingBracket': {
-    backgroundColor: config.invalid,
+    backgroundColor: config.matchingBracket,
     outline: 'none'
   },
   '.cm-gutters': {
@@ -81,7 +83,7 @@ export const githubLightTheme = EditorView.theme({
       background: config.selection,
       color: config.foreground
     }
-  }
+  },
 }, {dark: config.dark})
 
 export const githubLightHighlightStyle = HighlightStyle.define([

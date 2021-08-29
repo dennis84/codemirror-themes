@@ -11,11 +11,13 @@ export const config = {
   cursor: '#F8F8F2',
   dropdownBackground: '#282A36',
   dropdownBorder: '#191A21',
+  activeLine: '#44475A',
+  matchingBracket: '#44475A',
   keyword: '#FF79C6',
   storage: '#FF79C6',
   variable: '#BD93F9',
   parameter: '#FFB86C',
-  function: '#50FA7B',
+  function: '',
   string: '#F1FA8C',
   constant: '#BD93F9',
   type: '#8BE9FD',
@@ -50,12 +52,12 @@ export const draculaTheme = EditorView.theme({
     backgroundColor: config.selection
   },
 
-  '.cm-activeLine': {backgroundColor: config.selection},
+  '.cm-activeLine': {backgroundColor: config.activeLine},
   '.cm-activeLineGutter': {backgroundColor: config.background},
   '.cm-selectionMatch': {backgroundColor: config.selection},
 
   '.cm-matchingBracket, .cm-nonmatchingBracket': {
-    backgroundColor: config.invalid,
+    backgroundColor: config.matchingBracket,
     outline: 'none'
   },
   '.cm-gutters': {
@@ -81,7 +83,7 @@ export const draculaTheme = EditorView.theme({
       background: config.selection,
       color: config.foreground
     }
-  }
+  },
 }, {dark: config.dark})
 
 export const draculaHighlightStyle = HighlightStyle.define([

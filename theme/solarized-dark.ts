@@ -11,6 +11,8 @@ export const config = {
   cursor: '#839496',
   dropdownBackground: '#002b36',
   dropdownBorder: '#2aa19899',
+  activeLine: '#073642',
+  matchingBracket: '#073642',
   keyword: '#859900',
   storage: '#93A1A1',
   variable: '#839496',
@@ -50,12 +52,12 @@ export const solarizedDarkTheme = EditorView.theme({
     backgroundColor: config.selection
   },
 
-  '.cm-activeLine': {backgroundColor: config.selection},
+  '.cm-activeLine': {backgroundColor: config.activeLine},
   '.cm-activeLineGutter': {backgroundColor: config.background},
   '.cm-selectionMatch': {backgroundColor: config.selection},
 
   '.cm-matchingBracket, .cm-nonmatchingBracket': {
-    backgroundColor: config.invalid,
+    backgroundColor: config.matchingBracket,
     outline: 'none'
   },
   '.cm-gutters': {
@@ -81,7 +83,7 @@ export const solarizedDarkTheme = EditorView.theme({
       background: config.selection,
       color: config.foreground
     }
-  }
+  },
 }, {dark: config.dark})
 
 export const solarizedDarkHighlightStyle = HighlightStyle.define([

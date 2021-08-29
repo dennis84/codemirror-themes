@@ -12,7 +12,7 @@ import (
   "net/http"
   "archive/zip"
   "io/ioutil"
-  "encoding/json"
+  "muzzammil.xyz/jsonc"
 )
 
 type Theme struct {
@@ -192,6 +192,8 @@ type TemplateParams struct {
   Cursor             Style
   DropdownBackground Style
   DropdownBorder     Style
+  ActiveLine         Style
+  MatchingBracket    Style
 
   // Syntax
   Keyword            Style // if else, etc
@@ -212,7 +214,7 @@ type TemplateParams struct {
 
 func makeTemplateParams(theme Theme, content []byte) TemplateParams {
   var data VsCodeTheme
-  err := json.Unmarshal(content, &data)
+  err := jsonc.Unmarshal(content, &data)
 
   if err != nil {
     log.Fatal("JSON parse error: ", err)
@@ -229,20 +231,22 @@ func makeTemplateParams(theme Theme, content []byte) TemplateParams {
     Cursor:             find(data, "editorCursor.foreground", "foreground"),
     DropdownBackground: find(data, "editor.background"),
     DropdownBorder:     find(data, "dropdown.border", "foreground"),
+    ActiveLine:         find(data, "editor.lineHighlightBackground", "editor.selectionBackground"),
+    MatchingBracket:    find(data, "editorBracketMatch.background", "editor.lineHighlightBackground", "editor.selectionBackground"),
     // Syntax
     // ========================================================================
     Keyword:            find(data, "keyword"),
     Storage:            find(data, "storage", "keyword"),
     Variable:           find(data, "variable.other", "variable.language", "variable", "foreground"),
     Parameter:          find(data, "variable.parameter", "variable"),
-    Function:           find(data, "entity.name.function", "entity.name"),
+    Function:           find(data, "support.function", "support", "entity.name.function", "entity.name"),
     String:             find(data, "string"),
     Constant:           find(data, "constant", "constant.character", "constant.keyword"),
     Type:               find(data, "support.type", "support", "entity.name.class"),
     Class:              find(data, "entity.name.class", "entity.name"),
     Number:             find(data, "constant.numeric", "constant"),
     Comment:            find(data, "comment"),
-    Heading:            find(data, "markup.heading"),
+    Heading:            find(data, "markup.heading", "markup.heading.setext"),
     Invalid:            find(data, "invalid", "editorError.foreground", "errorForeground"),
     Regexp:             find(data, "string.regexp", "string"),
   }
