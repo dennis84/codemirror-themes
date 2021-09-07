@@ -11,7 +11,14 @@
   },
   "type": "module",
   "exports": {
-    "./theme/*": "./dist/theme/*.js"
+    "./theme/*": "./dist/theme/*"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*"
+      ]
+    }
   },
   "sideEffects": false,
   "scripts": {

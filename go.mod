@@ -1,4 +1,4 @@
-module example.com/m/v2
+module github.com/dennis84/codemirror-themes
 
 go 1.16
 

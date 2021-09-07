@@ -22,6 +22,6 @@ import {githubDark} from 'codemirror-themes/theme/github-dark'
 
 ```bash
 go build
-./m
+./codemirror-themes
 npm i
 ```
