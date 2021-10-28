@@ -87,19 +87,12 @@ export const githubLightTheme = EditorView.theme({
 }, {dark: config.dark})
 
 export const githubLightHighlightStyle = HighlightStyle.define([
-  // const, let, function, if
   {tag: t.keyword, color: config.keyword},
-  // document
   {tag: [t.name, t.deleted, t.character, t.macroName], color: config.variable},
-  // getElementById
   {tag: [t.propertyName], color: config.function},
-  // "string"
   {tag: [t.processingInstruction, t.string, t.inserted, t.special(t.string)], color: config.string},
-  // render
   {tag: [t.function(t.variableName), t.labelName], color: config.function},
-  // ???
   {tag: [t.color, t.constant(t.name), t.standard(t.name)], color: config.constant},
-  // btn, count, fn render()
   {tag: [t.definition(t.name), t.separator], color: config.variable},
   {tag: [t.className], color: config.class},
   {tag: [t.number, t.changed, t.annotation, t.modifier, t.self, t.namespace], color: config.number},
