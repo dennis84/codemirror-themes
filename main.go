@@ -26,7 +26,7 @@ func main() {
 	themes := []Theme{
 		{
 			Name: "dracula",
-			URL:  "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/dracula-theme/vsextensions/theme-dracula/2.22.3/vspackage",
+			URL:  "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/dracula-theme/vsextensions/theme-dracula/2.24.2/vspackage",
 			File: "extension/theme/dracula.json",
 			Dark: true,
 		},
@@ -44,31 +44,31 @@ func main() {
 		},
 		{
 			Name: "material-light",
-			URL:  "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/Equinusocio/vsextensions/vsc-material-theme/33.1.2/vspackage",
+			URL:  "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/Equinusocio/vsextensions/vsc-material-theme/33.4.0/vspackage",
 			File: "extension/build/themes/Material-Theme-Lighter.json",
 			Dark: false,
 		},
 		{
 			Name: "material-dark",
-			URL:  "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/Equinusocio/vsextensions/vsc-material-theme/33.1.2/vspackage",
+			URL:  "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/Equinusocio/vsextensions/vsc-material-theme/33.4.0/vspackage",
 			File: "extension/build/themes/Material-Theme-Default.json",
 			Dark: true,
 		},
 		{
 			Name: "github-light",
-			URL:  "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/github-vscode-theme/3.0.0/vspackage",
+			URL:  "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/github-vscode-theme/6.0.0/vspackage",
 			File: "extension/themes/light.json",
 			Dark: false,
 		},
 		{
 			Name: "github-dark",
-			URL:  "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/github-vscode-theme/3.0.0/vspackage",
+			URL:  "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/github-vscode-theme/6.0.0/vspackage",
 			File: "extension/themes/dark.json",
 			Dark: true,
 		},
 		{
 			Name: "aura",
-			URL:  "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/DaltonMenezes/vsextensions/aura-theme/2.1.0/vspackage",
+			URL:  "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/DaltonMenezes/vsextensions/aura-theme/2.1.2/vspackage",
 			File: "extension/themes/aura-soft-dark-color-theme.json",
 			Dark: true,
 		},

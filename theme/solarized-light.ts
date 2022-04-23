@@ -1,6 +1,7 @@
 import {EditorView} from '@codemirror/view'
 import {Extension} from '@codemirror/state'
-import {HighlightStyle, tags as t} from '@codemirror/highlight'
+import {HighlightStyle, syntaxHighlighting} from '@codemirror/language'
+import {tags as t} from '@lezer/highlight'
 
 export const config = {
   name: 'solarizedLight',
@@ -111,5 +112,5 @@ export const solarizedLightHighlightStyle = HighlightStyle.define([
 
 export const solarizedLight: Extension = [
   solarizedLightTheme,
-  solarizedLightHighlightStyle,
+  syntaxHighlighting(solarizedLightHighlightStyle),
 ]
