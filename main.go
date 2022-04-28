@@ -16,67 +16,77 @@ import (
 
 // Theme ...
 type Theme struct {
-	Name string
-	URL  string
-	File string
-	Dark bool
+	Name   string
+	URL    string
+	Target string
+	File   string
+	Dark   bool
 }
 
 func main() {
 	themes := []Theme{
 		{
-			Name: "dracula",
-			URL:  "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/dracula-theme/vsextensions/theme-dracula/2.24.2/vspackage",
-			File: "extension/theme/dracula.json",
-			Dark: true,
+			Name:   "dracula",
+			URL:    "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/dracula-theme/vsextensions/theme-dracula/2.24.2/vspackage",
+			Target: "dracula",
+			File:   "extension/theme/dracula.json",
+			Dark:   true,
 		},
 		{
-			Name: "solarized-light",
-			URL:  "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ryanolsonx/vsextensions/solarized/2.0.3/vspackage",
-			File: "extension/themes/light-color-theme.json",
-			Dark: false,
+			Name:   "solarized-light",
+			URL:    "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ryanolsonx/vsextensions/solarized/2.0.3/vspackage",
+			Target: "solarized",
+			File:   "extension/themes/light-color-theme.json",
+			Dark:   false,
 		},
 		{
-			Name: "solarized-dark",
-			URL:  "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ryanolsonx/vsextensions/solarized/2.0.3/vspackage",
-			File: "extension/themes/dark-color-theme.json",
-			Dark: true,
+			Name:   "solarized-dark",
+			URL:    "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ryanolsonx/vsextensions/solarized/2.0.3/vspackage",
+			Target: "solarized",
+			File:   "extension/themes/dark-color-theme.json",
+			Dark:   true,
 		},
 		{
-			Name: "material-light",
-			URL:  "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/Equinusocio/vsextensions/vsc-material-theme/33.4.0/vspackage",
-			File: "extension/build/themes/Material-Theme-Lighter.json",
-			Dark: false,
+			Name:   "material-light",
+
+			URL:    "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/Equinusocio/vsextensions/vsc-material-theme/33.4.0/vspackage",
+			Target: "material",
+			File:   "extension/build/themes/Material-Theme-Lighter.json",
+			Dark:   false,
 		},
 		{
-			Name: "material-dark",
-			URL:  "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/Equinusocio/vsextensions/vsc-material-theme/33.4.0/vspackage",
-			File: "extension/build/themes/Material-Theme-Default.json",
-			Dark: true,
+			Name:   "material-dark",
+			URL:    "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/Equinusocio/vsextensions/vsc-material-theme/33.4.0/vspackage",
+			Target: "material",
+			File:   "extension/build/themes/Material-Theme-Default.json",
+			Dark:   true,
 		},
 		{
-			Name: "github-light",
-			URL:  "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/github-vscode-theme/6.0.0/vspackage",
-			File: "extension/themes/light.json",
-			Dark: false,
+			Name:   "github-light",
+			URL:    "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/github-vscode-theme/6.0.0/vspackage",
+			Target: "github",
+			File:   "extension/themes/light.json",
+			Dark:   false,
 		},
 		{
-			Name: "github-dark",
-			URL:  "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/github-vscode-theme/6.0.0/vspackage",
-			File: "extension/themes/dark.json",
-			Dark: true,
+			Name:   "github-dark",
+			URL:    "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/github-vscode-theme/6.0.0/vspackage",
+			Target: "github",
+			File:   "extension/themes/dark.json",
+			Dark:   true,
 		},
 		{
-			Name: "aura",
-			URL:  "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/DaltonMenezes/vsextensions/aura-theme/2.1.2/vspackage",
-			File: "extension/themes/aura-soft-dark-color-theme.json",
-			Dark: true,
+			Name:   "aura",
+			URL:    "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/DaltonMenezes/vsextensions/aura-theme/2.1.2/vspackage",
+			Target: "aura",
+			File:   "extension/themes/aura-soft-dark-color-theme.json",
+			Dark:   true,
 		},
 	}
 
 	for _, theme := range themes {
 		fmt.Println("Process theme: ", theme.Name)
-		if _, err := os.Stat("./tmp/" + theme.Name + ".zip"); os.IsNotExist(err) {
+		if _, err := os.Stat("./tmp/" + theme.Target + ".zip"); os.IsNotExist(err) {
 			fmt.Println("  Download theme")
 			downloadTheme(theme)
 		}
@@ -264,7 +274,7 @@ func makeTemplateParams(theme Theme, content []byte) TemplateParams {
 }
 
 func extractTheme(theme Theme) ([]byte, error) {
-	r, err := zip.OpenReader("tmp/" + theme.Name + ".zip")
+	r, err := zip.OpenReader("tmp/" + theme.Target + ".zip")
 
 	if err != nil {
 		log.Fatal(err)
@@ -309,7 +319,7 @@ func downloadTheme(theme Theme) {
 	_ = os.Mkdir("./tmp", 0700)
 
 	// Create the file
-	out, err := os.Create("tmp/" + theme.Name + ".zip")
+	out, err := os.Create("tmp/" + theme.Target + ".zip")
 	if err != nil {
 		log.Fatal(err)
 	}
