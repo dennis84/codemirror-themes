@@ -11,11 +11,14 @@
   },
   "type": "module",
   "exports": {
-    "./theme/*": "./dist/theme/*"
+    ".": "./dist/index.js",
+    "./theme/*": "./dist/theme/*",
+    "./*": "./dist/theme/*"
   },
   "typesVersions": {
     "*": {
       "*": [
+        "./dist/theme/*",
         "./dist/*"
       ]
     }

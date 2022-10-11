@@ -15,4 +15,16 @@ const builds = readdirSync(themes).map((f) => ({
   external: id => id != 'tslib' && !/^(\.?\/|\w:)/.test(id),
 }))
 
-export default builds
+export default [
+  ...builds,
+  {
+    input: './index.ts',
+    output: [{
+      format: 'esm',
+      dir: './dist',
+      externalLiveBindings: false,
+    }],
+    plugins: [typescript()],
+    external: id => id != 'tslib' && !/^(\.?\/|\w:)/.test(id),
+  }
+]

@@ -243,7 +243,6 @@ func makeTemplateParams(theme Theme, content []byte) TemplateParams {
 		ExportPrefix: kebabToCamelCase(theme.Name),
 		Dark:         theme.Dark,
 		// Layout
-		// ========================================================================
 		Background:         find(data, "editor.background"),
 		Foreground:         find(data, "foreground", "input.foreground"),
 		Selection:          find(data, "editor.selectionBackground"),
@@ -253,7 +252,6 @@ func makeTemplateParams(theme Theme, content []byte) TemplateParams {
 		ActiveLine:         find(data, "editor.lineHighlightBackground", "editor.selectionBackground"),
 		MatchingBracket:    find(data, "editorBracketMatch.background", "editor.lineHighlightBackground", "editor.selectionBackground"),
 		// Syntax
-		// ========================================================================
 		Keyword:   find(data, "keyword"),
 		Storage:   find(data, "storage", "keyword"),
 		Variable:  find(data, "variable.parameter", "variable.other", "variable.language", "variable", "foreground"),
