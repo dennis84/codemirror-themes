@@ -54,19 +54,19 @@ export const {{.ExportPrefix}}Theme = EditorView.theme({
   },
 
   '.cm-activeLine': {backgroundColor: config.activeLine},
-  '.cm-activeLineGutter': {backgroundColor: config.background},
   '.cm-selectionMatch': {backgroundColor: config.selection},
 
-  '.cm-matchingBracket, .cm-nonmatchingBracket': {
+  '&.cm-focused .cm-matchingBracket, &.cm-focused .cm-nonmatchingBracket': {
     backgroundColor: config.matchingBracket,
     outline: 'none'
   },
+
   '.cm-gutters': {
     backgroundColor: config.background,
     color: config.foreground,
     border: 'none'
   },
-  '.cm-lineNumbers, .cm-gutterElement': {color: 'inherit'},
+  '.cm-activeLineGutter': {backgroundColor: config.background},
 
   '.cm-foldPlaceholder': {
     backgroundColor: 'transparent',
@@ -79,6 +79,14 @@ export const {{.ExportPrefix}}Theme = EditorView.theme({
     backgroundColor: config.dropdownBackground,
     color: config.foreground
   },
+  '.cm-tooltip .cm-tooltip-arrow:before': {
+    borderTopColor: 'transparent',
+    borderBottomColor: 'transparent'
+  },
+  '.cm-tooltip .cm-tooltip-arrow:after': {
+    borderTopColor: config.foreground,
+    borderBottomColor: config.foreground,
+  },
   '.cm-tooltip.cm-tooltip-autocomplete': {
     '& > ul > li[aria-selected]': {
       background: config.selection,
@@ -89,7 +97,7 @@ export const {{.ExportPrefix}}Theme = EditorView.theme({
 
 export const {{.ExportPrefix}}HighlightStyle = HighlightStyle.define([
   {tag: t.keyword, color: config.keyword},{{/* const, let, function, if */}}
-  {tag: [t.name, t.deleted, t.character, t.macroName], color: config.variable},{{/* document */}}
+  {tag: [t.name, t.deleted, t.character, t.macroName], color: config.variable},{{/* btn, document */}}
   {tag: [t.propertyName], color: config.function},{{/* getElementById */}}
   {tag: [t.processingInstruction, t.string, t.inserted, t.special(t.string)], color: config.string},{{/* "string" */}}
   {tag: [t.function(t.variableName), t.labelName], color: config.function},{{/* render */}}

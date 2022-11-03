@@ -21,7 +21,7 @@ export const config = {
   function: '#268BD2',
   string: '#2AA198',
   constant: '#CB4B16',
-  type: '#268BD2',
+  type: '#859900',
   class: '#268BD2',
   number: '#D33682',
   comment: '#93A1A1',
@@ -54,19 +54,19 @@ export const solarizedLightTheme = EditorView.theme({
   },
 
   '.cm-activeLine': {backgroundColor: config.activeLine},
-  '.cm-activeLineGutter': {backgroundColor: config.background},
   '.cm-selectionMatch': {backgroundColor: config.selection},
 
-  '.cm-matchingBracket, .cm-nonmatchingBracket': {
+  '&.cm-focused .cm-matchingBracket, &.cm-focused .cm-nonmatchingBracket': {
     backgroundColor: config.matchingBracket,
     outline: 'none'
   },
+
   '.cm-gutters': {
     backgroundColor: config.background,
     color: config.foreground,
     border: 'none'
   },
-  '.cm-lineNumbers, .cm-gutterElement': {color: 'inherit'},
+  '.cm-activeLineGutter': {backgroundColor: config.background},
 
   '.cm-foldPlaceholder': {
     backgroundColor: 'transparent',
@@ -78,6 +78,14 @@ export const solarizedLightTheme = EditorView.theme({
     border: `1px solid ${config.dropdownBorder}`,
     backgroundColor: config.dropdownBackground,
     color: config.foreground
+  },
+  '.cm-tooltip .cm-tooltip-arrow:before': {
+    borderTopColor: 'transparent',
+    borderBottomColor: 'transparent'
+  },
+  '.cm-tooltip .cm-tooltip-arrow:after': {
+    borderTopColor: config.foreground,
+    borderBottomColor: config.foreground,
   },
   '.cm-tooltip.cm-tooltip-autocomplete': {
     '& > ul > li[aria-selected]': {

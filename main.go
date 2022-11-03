@@ -2,11 +2,13 @@ package main
 
 import (
 	"archive/zip"
+	"bytes"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
-	"muzzammil.xyz/jsonc"
+	"encoding/json"
+	"github.com/tinode/jsonco"
 	"net/http"
 	"os"
 	"reflect"
@@ -47,7 +49,7 @@ func main() {
 			Dark:   true,
 		},
 		{
-			Name:   "material-light",
+			Name: "material-light",
 
 			URL:    "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/Equinusocio/vsextensions/vsc-material-theme/33.4.0/vspackage",
 			Target: "material",
@@ -81,6 +83,27 @@ func main() {
 			Target: "aura",
 			File:   "extension/themes/aura-soft-dark-color-theme.json",
 			Dark:   true,
+		},
+		{
+			Name:   "tokyo-night",
+			URL:    "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/enkia/vsextensions/tokyo-night/0.9.4/vspackage",
+			Target: "tokyo-night",
+			File:   "extension/themes/tokyo-night-color-theme.json",
+			Dark:   true,
+		},
+		{
+			Name:   "tokyo-night-storm",
+			URL:    "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/enkia/vsextensions/tokyo-night/0.9.4/vspackage",
+			Target: "tokyo-night-storm",
+			File:   "extension/themes/tokyo-night-storm-color-theme.json",
+			Dark:   true,
+		},
+		{
+			Name:   "tokyo-night-light",
+			URL:    "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/enkia/vsextensions/tokyo-night/0.9.4/vspackage",
+			Target: "tokyo-night-light",
+			File:   "extension/themes/tokyo-night-light-color-theme.json",
+			Dark:   false,
 		},
 	}
 
@@ -152,7 +175,7 @@ func find(data VsCodeTheme, keys ...string) Style {
 	style := Style{}
 
 	for _, key := range keys {
-		if value, exist := data.Colors[key]; exist {
+		if value, exist := data.Colors[key]; exist && style.Color == nil {
 			return Style{Color: &value}
 		}
 
@@ -181,8 +204,9 @@ func find(data VsCodeTheme, keys ...string) Style {
 				if scope == key &&
 					(style.Color == nil || *style.Prio > i) &&
 					tokenColor.Settings.Foreground != nil {
+					prio := i
 					style.Color = tokenColor.Settings.Foreground
-					style.Prio = &i
+					style.Prio = &prio
 				}
 
 				if scope == key && style.FontStyle == nil && tokenColor.Settings.FontStyle != nil {
@@ -233,11 +257,8 @@ type TemplateParams struct {
 
 func makeTemplateParams(theme Theme, content []byte) TemplateParams {
 	var data VsCodeTheme
-	err := jsonc.Unmarshal(content, &data)
-
-	if err != nil {
-		log.Fatal("JSON parse error: ", err)
-	}
+	jr := jsonco.New(bytes.NewBuffer(content))
+	json.NewDecoder(jr).Decode(&data)
 
 	params := TemplateParams{
 		ExportPrefix: kebabToCamelCase(theme.Name),
@@ -254,7 +275,7 @@ func makeTemplateParams(theme Theme, content []byte) TemplateParams {
 		// Syntax
 		Keyword:   find(data, "keyword"),
 		Storage:   find(data, "storage", "keyword"),
-		Variable:  find(data, "variable.parameter", "variable.other", "variable.language", "variable", "foreground"),
+		Variable:  find(data, "variable", "variable.parameter", "variable.other", "variable.language", "foreground"),
 		Parameter: find(data, "variable.parameter", "variable.other", "variable"),
 		Function:  find(data, "support.function", "support", "entity.name.function", "entity.name"),
 		String:    find(data, "string"),
@@ -263,7 +284,7 @@ func makeTemplateParams(theme Theme, content []byte) TemplateParams {
 		Class:     find(data, "entity.name.class", "entity.name"),
 		Number:    find(data, "constant.numeric", "constant"),
 		Comment:   find(data, "comment"),
-		Heading:   find(data, "markup.heading", "markup.heading.setext"),
+		Heading:   find(data, "markup.heading", "markup.heading.setext", "heading.1.markdown entity.name"),
 		Invalid:   find(data, "invalid", "editorError.foreground", "errorForeground", "foreground", "input.foreground"),
 		Regexp:    find(data, "string.regexp", "string"),
 	}

@@ -25,13 +25,17 @@
   },
   "sideEffects": false,
   "scripts": {
-    "prepare": "rollup -c"
+    "prepare": "rm -rf ./dist && rollup -c",
+    "dev": "vite ./example"
   },
   "devDependencies": {
+    "@codemirror/autocomplete": "^6.3.0",
+    "@codemirror/lang-javascript": "^6.1.1",
     "@rollup/plugin-typescript": "^8.3.3",
     "rollup": "^2.75.6",
     "tslib": "^2.4.0",
-    "typescript": "^4.7.3"
+    "typescript": "^4.7.3",
+    "vite": "^3.2.2"
   },
   "dependencies": {
     "@codemirror/language": "^6.0.0",

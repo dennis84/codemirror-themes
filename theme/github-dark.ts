@@ -16,7 +16,7 @@ export const config = {
   matchingBracket: '#17E5E650',
   keyword: '#f97583',
   storage: '#f97583',
-  variable: '#d1d5da',
+  variable: '#ffab70',
   parameter: '#e1e4e8',
   function: '#79b8ff',
   string: '#9ecbff',
@@ -54,19 +54,19 @@ export const githubDarkTheme = EditorView.theme({
   },
 
   '.cm-activeLine': {backgroundColor: config.activeLine},
-  '.cm-activeLineGutter': {backgroundColor: config.background},
   '.cm-selectionMatch': {backgroundColor: config.selection},
 
-  '.cm-matchingBracket, .cm-nonmatchingBracket': {
+  '&.cm-focused .cm-matchingBracket, &.cm-focused .cm-nonmatchingBracket': {
     backgroundColor: config.matchingBracket,
     outline: 'none'
   },
+
   '.cm-gutters': {
     backgroundColor: config.background,
     color: config.foreground,
     border: 'none'
   },
-  '.cm-lineNumbers, .cm-gutterElement': {color: 'inherit'},
+  '.cm-activeLineGutter': {backgroundColor: config.background},
 
   '.cm-foldPlaceholder': {
     backgroundColor: 'transparent',
@@ -78,6 +78,14 @@ export const githubDarkTheme = EditorView.theme({
     border: `1px solid ${config.dropdownBorder}`,
     backgroundColor: config.dropdownBackground,
     color: config.foreground
+  },
+  '.cm-tooltip .cm-tooltip-arrow:before': {
+    borderTopColor: 'transparent',
+    borderBottomColor: 'transparent'
+  },
+  '.cm-tooltip .cm-tooltip-arrow:after': {
+    borderTopColor: config.foreground,
+    borderBottomColor: config.foreground,
   },
   '.cm-tooltip.cm-tooltip-autocomplete': {
     '& > ul > li[aria-selected]': {

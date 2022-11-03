@@ -1,0 +1,30 @@
+<style>
+body { margin: 1px }
+#examples {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.cm-editor {
+  margin: 1px;
+}
+</style>
+<div id="examples"></div>
+<script type="module" src="./index.ts"></script>
+<script type="text/template" id="code">
+import { param } from 'module';
+
+const btn = document.getElementById('btn');
+let count: number = 0;
+
+function render() {
+  btn.innerText = `Count: ${count}`;
+}
+
+btn.addEventListener('click', (e) => {
+  // Count from 1 to 10.
+  if (count < 10) {
+    count += 1;
+    render();
+  }
+});
+</script>

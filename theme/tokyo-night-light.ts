@@ -4,33 +4,33 @@ import {HighlightStyle, syntaxHighlighting} from '@codemirror/language'
 import {tags as t} from '@lezer/highlight'
 
 export const config = {
-  name: 'materialLight',
+  name: 'tokyoNightLight',
   dark: false,
-  background: '#FAFAFA',
-  foreground: '#90A4AE',
-  selection: '#80CBC440',
-  cursor: '#272727',
-  dropdownBackground: '#FAFAFA',
-  dropdownBorder: '#00000010',
-  activeLine: '#CCD7DA50',
-  matchingBracket: '#FAFAFA',
-  keyword: '#39ADB5',
-  storage: '#39ADB5',
-  variable: '#90A4AE',
-  parameter: '#90A4AE',
-  function: '#6182B8',
-  string: '#91B859',
-  constant: '#39ADB5',
-  type: '#E2931D',
-  class: '#E2931D',
-  number: '#F76D47',
-  comment: '#90A4AE',
-  heading: '#39ADB5',
-  invalid: '#E5393570',
-  regexp: '#91B859',
+  background: '#d5d6db',
+  foreground: '#4c505e',
+  selection: '#fafbff40',
+  cursor: '#4c505e',
+  dropdownBackground: '#d5d6db',
+  dropdownBorder: '#c1c2c7',
+  activeLine: '#dcdee3',
+  matchingBracket: '#cdced1',
+  keyword: '#5a4a78',
+  storage: '#5a4a78',
+  variable: '#343b58',
+  parameter: '#343b58',
+  function: '#166775',
+  string: '#485e30',
+  constant: '#5a4a78',
+  type: '#166775',
+  class: '#343b58',
+  number: '#965027',
+  comment: '#9699a3',
+  heading: '#383b45',
+  invalid: '#942f2f',
+  regexp: '#3e6968',
 }
 
-export const materialLightTheme = EditorView.theme({
+export const tokyoNightLightTheme = EditorView.theme({
   '&': {
     color: config.foreground,
     backgroundColor: config.background,
@@ -95,7 +95,7 @@ export const materialLightTheme = EditorView.theme({
   },
 }, {dark: config.dark})
 
-export const materialLightHighlightStyle = HighlightStyle.define([
+export const tokyoNightLightHighlightStyle = HighlightStyle.define([
   {tag: t.keyword, color: config.keyword},
   {tag: [t.name, t.deleted, t.character, t.macroName], color: config.variable},
   {tag: [t.propertyName], color: config.function},
@@ -118,7 +118,7 @@ export const materialLightHighlightStyle = HighlightStyle.define([
   {tag: t.strikethrough, textDecoration: 'line-through'},
 ])
 
-export const materialLight: Extension = [
-  materialLightTheme,
-  syntaxHighlighting(materialLightHighlightStyle),
+export const tokyoNightLight: Extension = [
+  tokyoNightLightTheme,
+  syntaxHighlighting(tokyoNightLightHighlightStyle),
 ]
