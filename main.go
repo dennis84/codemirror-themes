@@ -3,12 +3,12 @@ package main
 import (
 	"archive/zip"
 	"bytes"
+	"encoding/json"
 	"fmt"
+	"github.com/tinode/jsonco"
 	"io"
 	"io/ioutil"
 	"log"
-	"encoding/json"
-	"github.com/tinode/jsonco"
 	"net/http"
 	"os"
 	"reflect"
@@ -270,10 +270,10 @@ func makeTemplateParams(theme Theme, content []byte) TemplateParams {
 		Storage:   find(data, "storage", "keyword"),
 		Variable:  find(data, "variable", "variable.parameter", "variable.other", "variable.language", "foreground"),
 		Parameter: find(data, "variable.parameter", "variable.other", "variable"),
-		Function:  find(data, "support.function", "support", "entity.name.function", "entity.name"),
+		Function:  find(data, "entity.name.function", "support.function", "entity.name", "support"),
 		String:    find(data, "string"),
 		Constant:  find(data, "constant", "constant.character", "constant.keyword"),
-		Type:      find(data, "support.type", "support", "entity.name.class"),
+		Type:      find(data, "entity.name.type", "entity.name.class", "support.type", "support"),
 		Class:     find(data, "entity.name.class", "entity.name"),
 		Number:    find(data, "constant.numeric", "constant"),
 		Comment:   find(data, "comment"),

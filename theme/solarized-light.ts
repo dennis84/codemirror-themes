@@ -21,7 +21,7 @@ export const config = {
   function: '#268BD2',
   string: '#2AA198',
   constant: '#CB4B16',
-  type: '#859900',
+  type: '#b58900',
   class: '#268BD2',
   number: '#D33682',
   comment: '#93A1A1',

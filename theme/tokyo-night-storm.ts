@@ -18,7 +18,7 @@ export const config = {
   storage: '#bb9af7',
   variable: '#c0caf5',
   parameter: '#c0caf5',
-  function: '#2ac3de',
+  function: '#7aa2f7',
   string: '#9ece6a',
   constant: '#bb9af7',
   type: '#2ac3de',
