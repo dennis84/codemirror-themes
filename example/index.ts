@@ -11,7 +11,7 @@ import {solarizedDark} from '../theme/solarized-dark'
 import {solarizedLight} from '../theme/solarized-light'
 import {tokyoNight} from '../theme/tokyo-night'
 import {tokyoNightStorm} from '../theme/tokyo-night-storm'
-import {tokyoNightLight} from '../theme/tokyo-night-light'
+import {tokyoNightDay} from '../theme/tokyo-night-day'
 
 const parent = document.getElementById('examples')
 const doc = document.getElementById('code').textContent.trim()
@@ -40,4 +40,4 @@ createEditor(solarizedDark)
 createEditor(solarizedLight)
 createEditor(tokyoNight)
 createEditor(tokyoNightStorm)
-createEditor(tokyoNightLight)
+createEditor(tokyoNightDay)

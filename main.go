@@ -98,13 +98,6 @@ func main() {
 			File:   "extension/themes/tokyo-night-storm-color-theme.json",
 			Dark:   true,
 		},
-		{
-			Name:   "tokyo-night-light",
-			URL:    "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/enkia/vsextensions/tokyo-night/0.9.4/vspackage",
-			Target: "tokyo-night-light",
-			File:   "extension/themes/tokyo-night-light-color-theme.json",
-			Dark:   false,
-		},
 	}
 
 	for _, theme := range themes {

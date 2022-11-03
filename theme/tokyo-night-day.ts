@@ -4,33 +4,33 @@ import {HighlightStyle, syntaxHighlighting} from '@codemirror/language'
 import {tags as t} from '@lezer/highlight'
 
 export const config = {
-  name: 'tokyoNightLight',
+  name: 'tokyoNightDay',
   dark: false,
-  background: '#d5d6db',
-  foreground: '#4c505e',
-  selection: '#fafbff40',
-  cursor: '#4c505e',
+  background: '#e1e2e7',
+  foreground: '#3760bf',
+  selection: '#99a7df',
+  cursor: '#3760bf',
   dropdownBackground: '#d5d6db',
   dropdownBorder: '#c1c2c7',
-  activeLine: '#dcdee3',
-  matchingBracket: '#cdced1',
-  keyword: '#5a4a78',
-  storage: '#5a4a78',
-  variable: '#343b58',
-  parameter: '#343b58',
-  function: '#166775',
-  string: '#485e30',
-  constant: '#5a4a78',
-  type: '#166775',
-  class: '#343b58',
-  number: '#965027',
-  comment: '#9699a3',
-  heading: '#383b45',
-  invalid: '#942f2f',
-  regexp: '#3e6968',
+  activeLine: '#5f5faf11',
+  matchingBracket: '#99a7df',
+  keyword: '#007197',
+  storage: '#3760bf',
+  variable: '#3760bf',
+  parameter: '#3760bf',
+  function: '#3760bf',
+  string: '#587539',
+  constant: '#3760bf',
+  type: '#007197',
+  class: '#3760bf',
+  number: '#b15c00',
+  comment: '#848cb5',
+  heading: '#b15c00',
+  invalid: '#f52a65',
+  regexp: '#587539',
 }
 
-export const tokyoNightLightTheme = EditorView.theme({
+export const tokyoNightDayTheme = EditorView.theme({
   '&': {
     color: config.foreground,
     backgroundColor: config.background,
@@ -95,7 +95,7 @@ export const tokyoNightLightTheme = EditorView.theme({
   },
 }, {dark: config.dark})
 
-export const tokyoNightLightHighlightStyle = HighlightStyle.define([
+export const tokyoNightDayHighlightStyle = HighlightStyle.define([
   {tag: t.keyword, color: config.keyword},
   {tag: [t.name, t.deleted, t.character, t.macroName], color: config.variable},
   {tag: [t.propertyName], color: config.function},
@@ -118,7 +118,7 @@ export const tokyoNightLightHighlightStyle = HighlightStyle.define([
   {tag: t.strikethrough, textDecoration: 'line-through'},
 ])
 
-export const tokyoNightLight: Extension = [
-  tokyoNightLightTheme,
-  syntaxHighlighting(tokyoNightLightHighlightStyle),
+export const tokyoNightDay: Extension = [
+  tokyoNightDayTheme,
+  syntaxHighlighting(tokyoNightDayHighlightStyle),
 ]

@@ -23,7 +23,7 @@ import {githubDark} from '@ddietr/codemirror-themes/github-dark'
 import {aura} from '@ddietr/codemirror-themes/aura'
 import {tokyoNight} from '@ddietr/codemirror-themes/tokyo-night'
 import {tokyoNightStorm} from '@ddietr/codemirror-themes/tokyo-night-storm'
-import {tokyoNightLight} from '@ddietr/codemirror-themes/tokyo-night-light'
+import {tokyoNightDay} from '@ddietr/codemirror-themes/tokyo-night-day'
 ```
 
 ## Dev
