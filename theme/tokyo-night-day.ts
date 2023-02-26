@@ -7,27 +7,27 @@ export const config = {
   name: 'tokyoNightDay',
   dark: false,
   background: '#e1e2e7',
-  foreground: '#3760bf',
-  selection: '#99a7df',
+  foreground: '#6a6f8e',
+  selection: '#8591b840',
   cursor: '#3760bf',
-  dropdownBackground: '#d5d6db',
-  dropdownBorder: '#c1c2c7',
-  activeLine: '#5f5faf11',
-  matchingBracket: '#99a7df',
-  keyword: '#007197',
-  storage: '#3760bf',
+  dropdownBackground: '#e1e2e7',
+  dropdownBorder: '#6a6f8e',
+  activeLine: '#d9dae4',
+  matchingBracket: '#e9e9ec',
+  keyword: '#9854f1',
+  storage: '#9854f1',
   variable: '#3760bf',
   parameter: '#3760bf',
-  function: '#3760bf',
+  function: '#2e7de9',
   string: '#587539',
-  constant: '#3760bf',
-  type: '#007197',
+  constant: '#9854f1',
+  type: '#07879d',
   class: '#3760bf',
   number: '#b15c00',
-  comment: '#848cb5',
-  heading: '#b15c00',
-  invalid: '#f52a65',
-  regexp: '#587539',
+  comment: '#9da3c2',
+  heading: '#006a83',
+  invalid: '#ff3e64',
+  regexp: '#2e5857',
 }
 
 export const tokyoNightDayTheme = EditorView.theme({
@@ -38,8 +38,8 @@ export const tokyoNightDayTheme = EditorView.theme({
 
   '.cm-content': {caretColor: config.cursor},
 
-  '&.cm-focused .cm-cursor': {borderLeftColor: config.cursor},
-  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground, & ::selection': {backgroundColor: config.selection},
+  '.cm-cursor, .cm-dropCursor': {borderLeftColor: config.cursor},
+  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground, .cm-content ::selection': {backgroundColor: config.selection},
 
   '.cm-panels': {backgroundColor: config.dropdownBackground, color: config.foreground},
   '.cm-panels.cm-panels-top': {borderBottom: '2px solid black'},
@@ -73,11 +73,10 @@ export const tokyoNightDayTheme = EditorView.theme({
     border: 'none',
     color: config.foreground
   },
-
   '.cm-tooltip': {
     border: `1px solid ${config.dropdownBorder}`,
     backgroundColor: config.dropdownBackground,
-    color: config.foreground
+    color: config.foreground,
   },
   '.cm-tooltip .cm-tooltip-arrow:before': {
     borderTopColor: 'transparent',
@@ -87,12 +86,12 @@ export const tokyoNightDayTheme = EditorView.theme({
     borderTopColor: config.foreground,
     borderBottomColor: config.foreground,
   },
-  '.cm-tooltip.cm-tooltip-autocomplete': {
+  '.cm-tooltip-autocomplete': {
     '& > ul > li[aria-selected]': {
       background: config.selection,
-      color: config.foreground
+      color: config.foreground,
     }
-  },
+  }
 }, {dark: config.dark})
 
 export const tokyoNightDayHighlightStyle = HighlightStyle.define([

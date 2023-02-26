@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/hsluv/hsluv-go"
 	"github.com/tinode/jsonco"
 	"io"
 	"io/ioutil"
@@ -23,6 +24,7 @@ type Theme struct {
 	Target string
 	File   string
 	Dark   bool
+	Invert bool
 }
 
 func main() {
@@ -33,6 +35,7 @@ func main() {
 			Target: "dracula",
 			File:   "extension/theme/dracula.json",
 			Dark:   true,
+			Invert: false,
 		},
 		{
 			Name:   "solarized-light",
@@ -40,6 +43,7 @@ func main() {
 			Target: "solarized",
 			File:   "extension/themes/light-color-theme.json",
 			Dark:   false,
+			Invert: false,
 		},
 		{
 			Name:   "solarized-dark",
@@ -47,6 +51,7 @@ func main() {
 			Target: "solarized",
 			File:   "extension/themes/dark-color-theme.json",
 			Dark:   true,
+			Invert: false,
 		},
 		{
 			Name:   "material-light",
@@ -54,6 +59,7 @@ func main() {
 			Target: "material",
 			File:   "extension/build/themes/Material-Theme-Lighter.json",
 			Dark:   false,
+			Invert: false,
 		},
 		{
 			Name:   "material-dark",
@@ -61,6 +67,7 @@ func main() {
 			Target: "material",
 			File:   "extension/build/themes/Material-Theme-Default.json",
 			Dark:   true,
+			Invert: false,
 		},
 		{
 			Name:   "github-light",
@@ -68,6 +75,7 @@ func main() {
 			Target: "github",
 			File:   "extension/themes/light.json",
 			Dark:   false,
+			Invert: false,
 		},
 		{
 			Name:   "github-dark",
@@ -75,6 +83,7 @@ func main() {
 			Target: "github",
 			File:   "extension/themes/dark.json",
 			Dark:   true,
+			Invert: false,
 		},
 		{
 			Name:   "aura",
@@ -82,6 +91,7 @@ func main() {
 			Target: "aura",
 			File:   "extension/themes/aura-soft-dark-color-theme.json",
 			Dark:   true,
+			Invert: false,
 		},
 		{
 			Name:   "tokyo-night",
@@ -89,6 +99,7 @@ func main() {
 			Target: "tokyo-night",
 			File:   "extension/themes/tokyo-night-color-theme.json",
 			Dark:   true,
+			Invert: false,
 		},
 		{
 			Name:   "tokyo-night-storm",
@@ -96,6 +107,15 @@ func main() {
 			Target: "tokyo-night",
 			File:   "extension/themes/tokyo-night-storm-color-theme.json",
 			Dark:   true,
+			Invert: false,
+		},
+		{
+			Name:   "tokyo-night-day",
+			URL:    "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/enkia/vsextensions/tokyo-night/0.9.7/vspackage",
+			Target: "tokyo-night",
+			File:   "extension/themes/tokyo-night-color-theme.json",
+			Dark:   false,
+			Invert: true,
 		},
 	}
 
@@ -117,8 +137,55 @@ func main() {
 	}
 }
 
+func invertColor(hex string) *string {
+	alpha := ""
+	if len(hex) > 7 {
+		alpha = hex[len(hex)-2:]
+		hex = hex[0:7]
+	}
+
+	h, s, l := hsluv.HsluvFromHex(hex)
+	dayBrightness := 0.3
+
+	l = 100 - l
+	if l < 40 {
+		l = l + (100-l)*dayBrightness
+	}
+
+	res := hsluv.HsluvToHex(h, s, l) + alpha
+	return &res
+}
+
+func invertColors(params TemplateParams) {
+	params.Background.Color = invertColor(*params.Background.Color)
+	params.Foreground.Color = invertColor(*params.Foreground.Color)
+	params.Selection.Color = invertColor(*params.Selection.Color)
+	params.Cursor.Color = invertColor(*params.Cursor.Color)
+	params.DropdownBackground.Color = invertColor(*params.DropdownBackground.Color)
+	params.DropdownBorder.Color = invertColor(*params.DropdownBorder.Color)
+	params.ActiveLine.Color = invertColor(*params.ActiveLine.Color)
+	params.MatchingBracket.Color = invertColor(*params.MatchingBracket.Color)
+	params.Keyword.Color = invertColor(*params.Keyword.Color)
+	params.Storage.Color = invertColor(*params.Storage.Color)
+	params.Parameter.Color = invertColor(*params.Parameter.Color)
+	params.Variable.Color = invertColor(*params.Variable.Color)
+	params.Function.Color = invertColor(*params.Function.Color)
+	params.String.Color = invertColor(*params.String.Color)
+	params.Constant.Color = invertColor(*params.Constant.Color)
+	params.Type.Color = invertColor(*params.Type.Color)
+	params.Class.Color = invertColor(*params.Class.Color)
+	params.Number.Color = invertColor(*params.Number.Color)
+	params.Comment.Color = invertColor(*params.Comment.Color)
+	params.Heading.Color = invertColor(*params.Heading.Color)
+	params.Invalid.Color = invertColor(*params.Invalid.Color)
+	params.Regexp.Color = invertColor(*params.Regexp.Color)
+}
+
 func generateTheme(theme Theme, content []byte) {
 	params := makeTemplateParams(theme, content)
+	if theme.Invert {
+		invertColors(params)
+	}
 
 	t, err := template.ParseFiles("./template.js")
 	if err != nil {
@@ -163,12 +230,12 @@ type VsCodeTheme struct {
 	TokenColors []TokenColor
 }
 
-func find(data VsCodeTheme, keys ...string) Style {
+func find(data VsCodeTheme, keys ...string) *Style {
 	style := Style{}
 
 	for _, key := range keys {
 		if value, exist := data.Colors[key]; exist && style.Color == nil {
-			return Style{Color: &value}
+			return &Style{Color: &value}
 		}
 
 		for _, tokenColor := range data.TokenColors {
@@ -212,7 +279,7 @@ func find(data VsCodeTheme, keys ...string) Style {
 		panic(fmt.Sprintf("Could not find color by: %s", keys))
 	}
 
-	return style
+	return &style
 }
 
 // TemplateParams ...
@@ -221,30 +288,30 @@ type TemplateParams struct {
 	Dark         bool
 
 	// Editor
-	Background         Style
-	Foreground         Style
-	Selection          Style
-	Cursor             Style
-	DropdownBackground Style
-	DropdownBorder     Style
-	ActiveLine         Style
-	MatchingBracket    Style
+	Background         *Style
+	Foreground         *Style
+	Selection          *Style
+	Cursor             *Style
+	DropdownBackground *Style
+	DropdownBorder     *Style
+	ActiveLine         *Style
+	MatchingBracket    *Style
 
 	// Syntax
-	Keyword   Style // if else, etc
-	Storage   Style // const, let, etc - Not supported in CM
-	Parameter Style // fn(parmater)    - Not supported in CM
-	Variable  Style
-	Function  Style
-	String    Style
-	Constant  Style // ???
-	Type      Style // x: MyType
-	Class     Style // class MyClass
-	Number    Style
-	Comment   Style
-	Heading   Style
-	Invalid   Style
-	Regexp    Style
+	Keyword   *Style // if else, etc
+	Storage   *Style // const, let, etc - Not supported in CM
+	Parameter *Style // fn(parmater)    - Not supported in CM
+	Variable  *Style
+	Function  *Style
+	String    *Style
+	Constant  *Style // ???
+	Type      *Style // x: MyType
+	Class     *Style // class MyClass
+	Number    *Style
+	Comment   *Style
+	Heading   *Style
+	Invalid   *Style
+	Regexp    *Style
 }
 
 func makeTemplateParams(theme Theme, content []byte) TemplateParams {

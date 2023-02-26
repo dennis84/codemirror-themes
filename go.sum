@@ -1,3 +1,5 @@
+github.com/hsluv/hsluv-go v2.0.0+incompatible h1:M/USwFTC5ZHhZ0LPbPkpDu6AWMESfYKu5PJTxk4MHuY=
+github.com/hsluv/hsluv-go v2.0.0+incompatible/go.mod h1:ibzdSDmJ9F0U68asF8lD6rnwkarCkAPqZ5keGEha93k=
 github.com/tinode/jsonco v1.0.0 h1:zVcpjzDvjuA1G+HLrckI5EiiRyq9jgV3x37OQl6e5FE=
 github.com/tinode/jsonco v1.0.0/go.mod h1:Bnavu3302Qfn2pILMNwASkelodgeew3IvDrbdzU84u8=
 muzzammil.xyz/jsonc v0.0.0-20201229145248-615b0916ca38 h1:RTgkUbDUEKgkFlwK9NsUAmI1t0zUo+kWKSm9bAbr0TQ=
