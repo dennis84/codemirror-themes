@@ -38,8 +38,8 @@ export const tokyoNightStormTheme = EditorView.theme({
 
   '.cm-content': {caretColor: config.cursor},
 
-  '&.cm-focused .cm-cursor': {borderLeftColor: config.cursor},
-  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground, & ::selection': {backgroundColor: config.selection},
+  '.cm-cursor, .cm-dropCursor': {borderLeftColor: config.cursor},
+  '&.cm-focused .cm-selectionBackground, .cm-selectionBackground, .cm-content ::selection': {backgroundColor: config.selection},
 
   '.cm-panels': {backgroundColor: config.dropdownBackground, color: config.foreground},
   '.cm-panels.cm-panels-top': {borderBottom: '2px solid black'},
@@ -73,11 +73,10 @@ export const tokyoNightStormTheme = EditorView.theme({
     border: 'none',
     color: config.foreground
   },
-
   '.cm-tooltip': {
     border: `1px solid ${config.dropdownBorder}`,
     backgroundColor: config.dropdownBackground,
-    color: config.foreground
+    color: config.foreground,
   },
   '.cm-tooltip .cm-tooltip-arrow:before': {
     borderTopColor: 'transparent',
@@ -87,12 +86,12 @@ export const tokyoNightStormTheme = EditorView.theme({
     borderTopColor: config.foreground,
     borderBottomColor: config.foreground,
   },
-  '.cm-tooltip.cm-tooltip-autocomplete': {
+  '.cm-tooltip-autocomplete': {
     '& > ul > li[aria-selected]': {
       background: config.selection,
-      color: config.foreground
+      color: config.foreground,
     }
-  },
+  }
 }, {dark: config.dark})
 
 export const tokyoNightStormHighlightStyle = HighlightStyle.define([

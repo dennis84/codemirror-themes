@@ -2,7 +2,7 @@ import typescript from '@rollup/plugin-typescript'
 import {readdirSync} from 'fs'
 import {join} from 'path'
 
-const themes = join(__dirname, 'theme')
+const themes = './theme'
 
 const builds = readdirSync(themes).map((f) => ({
   input: join(themes, f),
