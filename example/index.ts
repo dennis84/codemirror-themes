@@ -12,12 +12,13 @@ import {solarizedLight} from '../theme/solarized-light'
 import {tokyoNight} from '../theme/tokyo-night'
 import {tokyoNightStorm} from '../theme/tokyo-night-storm'
 import {tokyoNightDay} from '../theme/tokyo-night-day'
+import {Extension} from '@codemirror/state'
 
-const parent = document.getElementById('examples')
-const doc = document.getElementById('code').textContent.trim()
+const parent = document.getElementById('examples')!
+const doc = document.getElementById('code')?.textContent?.trim()
 
-const createEditor = (theme) => {
-  const view = new EditorView({
+const createEditor = (theme: Extension) => {
+  new EditorView({
     doc,
     extensions: [
       lineNumbers(),
