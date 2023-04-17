@@ -329,7 +329,7 @@ func makeTemplateParams(theme Theme, content []byte) TemplateParams {
 		Cursor:             find(data, "editorCursor.foreground", "foreground"),
 		DropdownBackground: find(data, "editor.background"),
 		DropdownBorder:     find(data, "dropdown.border", "foreground"),
-		ActiveLine:         find(data, "editor.lineHighlightBackground", "editor.selectionBackground"),
+		ActiveLine:         find(data, "editor.lineHighlightBackground", "editor.background"),
 		MatchingBracket:    find(data, "editorBracketMatch.background", "editor.lineHighlightBackground", "editor.selectionBackground"),
 		// Syntax
 		Keyword:   find(data, "keyword"),
