@@ -137,6 +137,26 @@ func main() {
 	}
 }
 
+func addAlpha(hex string, theme Theme) *string {
+	if len(hex) > 7 {
+		return &hex
+	}
+
+	if len(hex) == 4 {
+		hex = hex + hex[1:4]
+	}
+
+	h, s, l := hsluv.HsluvFromHex(hex)
+	if theme.Dark {
+		l = l + 20
+	} else {
+		l = l - 20
+	}
+
+	res := hsluv.HsluvToHex(h, s, l) + "22"
+	return &res
+}
+
 func invertColor(hex string) *string {
 	alpha := ""
 	if len(hex) > 7 {
@@ -186,6 +206,8 @@ func generateTheme(theme Theme, content []byte) {
 	if theme.Invert {
 		invertColors(params)
 	}
+
+	params.ActiveLine.Color = addAlpha(*params.ActiveLine.Color, theme)
 
 	t, err := template.ParseFiles("./template.js")
 	if err != nil {
@@ -329,7 +351,7 @@ func makeTemplateParams(theme Theme, content []byte) TemplateParams {
 		Cursor:             find(data, "editorCursor.foreground", "foreground"),
 		DropdownBackground: find(data, "editor.background"),
 		DropdownBorder:     find(data, "dropdown.border", "foreground"),
-		ActiveLine:         find(data, "editor.lineHighlightBackground", "editor.background"),
+		ActiveLine:         find(data, "editor.background"),
 		MatchingBracket:    find(data, "editorBracketMatch.background", "editor.lineHighlightBackground", "editor.selectionBackground"),
 		// Syntax
 		Keyword:   find(data, "keyword"),

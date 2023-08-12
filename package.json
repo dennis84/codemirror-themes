@@ -29,9 +29,9 @@
     "dev": "vite ./example"
   },
   "devDependencies": {
-    "@codemirror/autocomplete": "^6.4.2",
     "@codemirror/lang-javascript": "^6.1.4",
     "@rollup/plugin-typescript": "^11.0.0",
+    "codemirror": "^6.0.1",
     "rollup": "^3.17.3",
     "tslib": "^2.5.0",
     "typescript": "^4.9.5",

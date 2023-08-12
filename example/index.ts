@@ -1,6 +1,5 @@
-import {EditorView, highlightActiveLine, lineNumbers} from '@codemirror/view'
+import {EditorView, basicSetup} from 'codemirror'
 import {javascript} from '@codemirror/lang-javascript'
-import {autocompletion} from '@codemirror/autocomplete'
 import {aura} from '../theme/aura'
 import {dracula} from '../theme/dracula'
 import {githubDark} from '../theme/github-dark'
@@ -21,10 +20,8 @@ const createEditor = (theme: Extension) => {
   new EditorView({
     doc,
     extensions: [
-      lineNumbers(),
-      highlightActiveLine(),
+      basicSetup,
       javascript({typescript: true}),
-      autocompletion(),
       theme,
     ],
     parent,

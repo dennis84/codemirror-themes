@@ -12,7 +12,7 @@ export const config = {
   cursor: '#a277ff',
   dropdownBackground: '#21202e',
   dropdownBorder: '#3b334b',
-  activeLine: '#a394f033',
+  activeLine: '#4d4b6622',
   matchingBracket: '#a394f033',
   keyword: '#a277ff',
   storage: '#a277ff',
