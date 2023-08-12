@@ -25,6 +25,7 @@ type Theme struct {
 	File   string
 	Dark   bool
 	Invert bool
+	Zip    bool
 }
 
 func main() {
@@ -36,22 +37,21 @@ func main() {
 			File:   "extension/theme/dracula.json",
 			Dark:   true,
 			Invert: false,
+			Zip:    true,
 		},
 		{
 			Name:   "solarized-light",
-			URL:    "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ryanolsonx/vsextensions/solarized/2.1.0/vspackage",
-			Target: "solarized",
-			File:   "extension/themes/light-color-theme.json",
+			URL:    "https://raw.githubusercontent.com/microsoft/vscode/main/extensions/theme-solarized-light/themes/solarized-light-color-theme.json",
 			Dark:   false,
 			Invert: false,
+			Zip:    false,
 		},
 		{
 			Name:   "solarized-dark",
-			URL:    "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ryanolsonx/vsextensions/solarized/2.1.0/vspackage",
-			Target: "solarized",
-			File:   "extension/themes/dark-color-theme.json",
+			URL:    "https://raw.githubusercontent.com/microsoft/vscode/main/extensions/theme-solarized-dark/themes/solarized-dark-color-theme.json",
 			Dark:   true,
 			Invert: false,
+			Zip:    false,
 		},
 		{
 			Name:   "material-light",
@@ -60,6 +60,7 @@ func main() {
 			File:   "extension/build/themes/Material-Theme-Lighter.json",
 			Dark:   false,
 			Invert: false,
+			Zip:    true,
 		},
 		{
 			Name:   "material-dark",
@@ -68,6 +69,7 @@ func main() {
 			File:   "extension/build/themes/Material-Theme-Default.json",
 			Dark:   true,
 			Invert: false,
+			Zip:    true,
 		},
 		{
 			Name:   "github-light",
@@ -76,6 +78,7 @@ func main() {
 			File:   "extension/themes/light.json",
 			Dark:   false,
 			Invert: false,
+			Zip:    true,
 		},
 		{
 			Name:   "github-dark",
@@ -84,6 +87,7 @@ func main() {
 			File:   "extension/themes/dark.json",
 			Dark:   true,
 			Invert: false,
+			Zip:    true,
 		},
 		{
 			Name:   "aura",
@@ -92,6 +96,7 @@ func main() {
 			File:   "extension/themes/aura-soft-dark-color-theme.json",
 			Dark:   true,
 			Invert: false,
+			Zip:    true,
 		},
 		{
 			Name:   "tokyo-night",
@@ -100,6 +105,7 @@ func main() {
 			File:   "extension/themes/tokyo-night-color-theme.json",
 			Dark:   true,
 			Invert: false,
+			Zip:    true,
 		},
 		{
 			Name:   "tokyo-night-storm",
@@ -108,6 +114,7 @@ func main() {
 			File:   "extension/themes/tokyo-night-storm-color-theme.json",
 			Dark:   true,
 			Invert: false,
+			Zip:    true,
 		},
 		{
 			Name:   "tokyo-night-day",
@@ -116,24 +123,43 @@ func main() {
 			File:   "extension/themes/tokyo-night-color-theme.json",
 			Dark:   false,
 			Invert: true,
+			Zip:    true,
 		},
 	}
 
 	for _, theme := range themes {
 		fmt.Println("Process theme: ", theme.Name)
-		if _, err := os.Stat("./tmp/" + theme.Target + ".zip"); os.IsNotExist(err) {
-			fmt.Println("  Download theme")
-			downloadTheme(theme)
-		}
 
-		fmt.Println("  Extract theme")
-		content, err := extractTheme(theme)
-		if err != nil {
-			log.Fatal(err)
-		}
+		if theme.Zip {
+			filename := theme.Target + ".zip"
+			if _, err := os.Stat("./tmp/" + filename); os.IsNotExist(err) {
+				fmt.Println("  Download theme")
+				downloadTheme(theme, filename)
+			}
 
-		fmt.Println("  Generate template")
-		generateTheme(theme, content)
+			fmt.Println("  Extract theme")
+			content, err := extractTheme(theme)
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			fmt.Println("  Generate template")
+			generateTheme(theme, content)
+		} else {
+			filename := theme.Name + ".json"
+			if _, err := os.Stat("./tmp/" + filename); os.IsNotExist(err) {
+				fmt.Println("  Download theme")
+				downloadTheme(theme, filename)
+			}
+
+			content, err := ioutil.ReadFile("./tmp/" + filename)
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			fmt.Println("  Generate template")
+			generateTheme(theme, content)
+		}
 	}
 }
 
@@ -405,7 +431,7 @@ func extractTheme(theme Theme) ([]byte, error) {
 	return nil, fmt.Errorf("Cound not find file %s in extension", theme.File)
 }
 
-func downloadTheme(theme Theme) {
+func downloadTheme(theme Theme, filename string) {
 	resp, err := http.Get(theme.URL)
 	if err != nil {
 		log.Fatal(err)
@@ -419,7 +445,7 @@ func downloadTheme(theme Theme) {
 	_ = os.Mkdir("./tmp", 0700)
 
 	// Create the file
-	out, err := os.Create("tmp/" + theme.Target + ".zip")
+	out, err := os.Create("tmp/" + filename)
 	if err != nil {
 		log.Fatal(err)
 	}
