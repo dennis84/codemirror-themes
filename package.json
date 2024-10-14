@@ -11,9 +11,18 @@
   },
   "type": "module",
   "exports": {
-    ".": "./dist/index.js",
-    "./theme/*": "./dist/theme/*",
-    "./*": "./dist/theme/*"
+    ".": {
+      "import": "./dist/index.cjs",
+      "require": "./dist/index.js"
+    },
+    "./theme/*": {
+      "import": "./dist/theme/*.cjs",
+      "require": "./dist/theme/*.js"
+    },
+    "./*": {
+      "import": "./dist/theme/*.cjs",
+      "require": "./dist/theme/*.js"
+    }
   },
   "typesVersions": {
     "*": {
