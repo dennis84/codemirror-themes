@@ -12,16 +12,16 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/index.cjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./theme/*": {
-      "import": "./dist/theme/*.cjs",
-      "require": "./dist/theme/*.js"
+      "import": "./dist/theme/*.js",
+      "require": "./dist/theme/*.cjs"
     },
     "./*": {
-      "import": "./dist/theme/*.cjs",
-      "require": "./dist/theme/*.js"
+      "import": "./dist/theme/*.js",
+      "require": "./dist/theme/*.cjs"
     }
   },
   "typesVersions": {
