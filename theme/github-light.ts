@@ -1,4 +1,4 @@
-import {EditorView} from '@codemirror/view'
+import {EditorView, lineNumbers} from '@codemirror/view'
 import {Extension} from '@codemirror/state'
 import {HighlightStyle, syntaxHighlighting} from '@codemirror/language'
 import {tags as t} from '@lezer/highlight'
@@ -13,6 +13,8 @@ export const config = {
   dropdownBackground: '#fff',
   dropdownBorder: '#e1e4e8',
   activeLine: '#c6c6c622',
+  lineNumber: '#1b1f234d',
+  lineNumberActive: '#24292e',
   matchingBracket: '#34d05840',
   keyword: '#d73a49',
   storage: '#d73a49',
@@ -67,6 +69,9 @@ export const githubLightTheme = EditorView.theme({
     border: 'none'
   },
   '.cm-activeLineGutter': {backgroundColor: config.background},
+
+  '.cm-lineNumbers .cm-gutterElement': {color: config.lineNumber},
+  '.cm-lineNumbers .cm-activeLineGutter': {color: config.lineNumberActive},
 
   '.cm-foldPlaceholder': {
     backgroundColor: 'transparent',

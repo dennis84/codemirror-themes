@@ -210,6 +210,8 @@ func invertColors(params TemplateParams) {
 	params.DropdownBackground.Color = invertColor(*params.DropdownBackground.Color)
 	params.DropdownBorder.Color = invertColor(*params.DropdownBorder.Color)
 	params.ActiveLine.Color = invertColor(*params.ActiveLine.Color)
+	params.LineNumber.Color = invertColor(*params.LineNumber.Color)
+	params.LineNumberActive.Color = invertColor(*params.LineNumberActive.Color)
 	params.MatchingBracket.Color = invertColor(*params.MatchingBracket.Color)
 	params.Keyword.Color = invertColor(*params.Keyword.Color)
 	params.Storage.Color = invertColor(*params.Storage.Color)
@@ -343,6 +345,8 @@ type TemplateParams struct {
 	DropdownBackground *Style
 	DropdownBorder     *Style
 	ActiveLine         *Style
+	LineNumber         *Style
+	LineNumberActive   *Style
 	MatchingBracket    *Style
 
 	// Syntax
@@ -378,6 +382,8 @@ func makeTemplateParams(theme Theme, content []byte) TemplateParams {
 		DropdownBackground: find(data, "editor.background"),
 		DropdownBorder:     find(data, "dropdown.border", "foreground"),
 		ActiveLine:         find(data, "editor.background"),
+		LineNumber:         find(data, "editorLineNumber.foreground", "input.foreground", "foreground"),
+		LineNumberActive:   find(data, "editorLineNumber.activeForeground", "input.foreground", "foreground"),
 		MatchingBracket:    find(data, "editorBracketMatch.background", "editor.lineHighlightBackground", "editor.selectionBackground"),
 		// Syntax
 		Keyword:   find(data, "keyword"),

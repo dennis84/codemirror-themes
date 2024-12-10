@@ -1,4 +1,4 @@
-import {EditorView} from '@codemirror/view'
+import {EditorView, lineNumbers} from '@codemirror/view'
 import {Extension} from '@codemirror/state'
 import {HighlightStyle, syntaxHighlighting} from '@codemirror/language'
 import {tags as t} from '@lezer/highlight'
@@ -13,6 +13,8 @@ export const config = {
   dropdownBackground: '#e1e2e7',
   dropdownBorder: '#6a6f8e',
   activeLine: '#a7aaba22',
+  lineNumber: '#b3b6cd',
+  lineNumberActive: '#68709a',
   matchingBracket: '#e9e9ec',
   keyword: '#9854f1',
   storage: '#9854f1',
@@ -67,6 +69,9 @@ export const tokyoNightDayTheme = EditorView.theme({
     border: 'none'
   },
   '.cm-activeLineGutter': {backgroundColor: config.background},
+
+  '.cm-lineNumbers .cm-gutterElement': {color: config.lineNumber},
+  '.cm-lineNumbers .cm-activeLineGutter': {color: config.lineNumberActive},
 
   '.cm-foldPlaceholder': {
     backgroundColor: 'transparent',
