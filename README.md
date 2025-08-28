@@ -39,4 +39,5 @@ npm run dev
 go build
 ./codemirror-themes
 npm i
+npm run build
 ```

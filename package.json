@@ -34,7 +34,7 @@
   },
   "sideEffects": false,
   "scripts": {
-    "prepare": "rm -rf ./dist && rollup -c",
+    "build": "rm -rf ./dist && rollup -c",
     "dev": "vite ./example"
   },
   "devDependencies": {
